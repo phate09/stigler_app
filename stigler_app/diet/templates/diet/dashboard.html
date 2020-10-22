@@ -1,0 +1,16 @@
+{%  extends 'diet/main.html' %}
+
+{% block content %}
+
+<br>
+
+<p>Main Page</p>
+{%if request.user.is_staff%}
+<div class="card card-body">
+    <a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_recipe'%}">Create Recipe</a>
+    <a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_type'%}">Create Type</a>
+    <a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_type'%}">Create Type</a>
+</div>
+{%endif%}
+{% endblock %}
+
