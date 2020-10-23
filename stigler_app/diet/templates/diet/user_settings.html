@@ -3,10 +3,8 @@
 {% block content %}
 
 <br>
-
-<div class="row">
-    <div class="col-sm">
-        <div class="card card-body">
+<div class="card">
+  <div class="card-header">
             <h5>
                 <span style="color:blue;font-weight:bold">
                     {{request.user}}
@@ -14,73 +12,76 @@
                 personal settings
             </h5>
         </div>
-        <div class="card card-body">
-            <h5 class="card-title">Contact informations
-            </h5>
-            <table class = "table table-borderless">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <td>{{customer.name}}</td>
-                    </tr>
-                    <tr>
-                        <th>Email</th>
-                        <td>{{customer.email}}</td>
-                    </tr>
-                    <tr>
-                        <th>Gender</th>
-                        <td>{{customer.gender}}</td>
-                    </tr>
-                    <tr>
-                        <th>Height</th>
-                        <td>{{customer.height}}</td>
-                    </tr>
-                    <tr>
-                        <th>Weight</th>
-                        <td>{{customer.weight}}</td>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    </div>
-    <div class="col-sm">
-        <div class="card card-body">
-            <table class = "table table-borderless">
-                <thead>
-                    <tr>
-                        <th class="card-title">
-                            <h5><b>Objectives</b></h5>
-                        </th>
-                        <td scope="col">Min</td>
-                        <td scope="col">Max</td>
-                    </tr>
-                    <tr>
-                        <th>Calories</th>
-                        <td>{{customer.objectives.calories_min}} kcal</td>
-                        <td>{{customer.objectives.calories_max}} kcal</td>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md">
+                    <h5 class="card-title">Contact informations
+                    </h5>
+                    <table class = "table table-borderless">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{customer.name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{customer.email}}</td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td>{{customer.gender}}</td>
+                            </tr>
+                            <tr>
+                                <th>Height</th>
+                                <td>{{customer.height}}</td>
+                            </tr>
+                            <tr>
+                                <th>Weight</th>
+                                <td>{{customer.weight}}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="col-md">
+                    <h5 class="card-title">Objectives
+                    </h5>
+                     <div class="card-body">
+                        <table class = "table table-borderless">
+                            <thead>
+                                <tr>
+                                    <td scope="col">    </td>
+                                    <td scope="col">Min</td>
+                                    <td scope="col">Max</td>
+                                </tr>
+                                <tr>
+                                    <th>Calories</th>
+                                    <td>{{customer.objectives.calories_min}} kcal</td>
+                                    <td>{{customer.objectives.calories_max}} kcal</td>
 
-                    </tr>
-                    <tr>
-                        <th>Carbohydrates</th>
-                        <td>{{customer.objectives.carbohydrates_min}} g</td>
-                        <td>{{customer.objectives.carbohydrates_max}} g</td>
-                    </tr>
-                    <tr>
-                        <th>Protein</th>
-                        <td>{{customer.objectives.protein_min}} g</td>
-                        <td>{{customer.objectives.protein_max}} g</td>
-                    </tr>
-                    <tr>
-                        <th>Fat</th>
-                        <td>{{customer.objectives.fat_min}} g</td>
-                        <td>{{customer.objectives.fat_max}} g</td>
-                    </tr>
-                </thead>
-            </table>
-        </div>
+                                </tr>
+                                <tr>
+                                    <th>Carbohydrates</th>
+                                    <td>{{customer.objectives.carbohydrates_min}} g</td>
+                                    <td>{{customer.objectives.carbohydrates_max}} g</td>
+                                </tr>
+                                <tr>
+                                    <th>Protein</th>
+                                    <td>{{customer.objectives.protein_min}} g</td>
+                                    <td>{{customer.objectives.protein_max}} g</td>
+                                </tr>
+                                <tr>
+                                    <th>Fat</th>
+                                    <td>{{customer.objectives.fat_min}} g</td>
+                                    <td>{{customer.objectives.fat_max}} g</td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
                 {% for i in user_settings %}
-
                 {%endfor%}
+        </div>
     </div>
 </div>
 
