@@ -15,15 +15,18 @@ class Objectives(models.Model):
 
 
 def default_new_objective():
-    objective: Objectives = Objectives.objects.create()
-    objective.calories_max = 2000
-    objective.calories_min = 1500
-    objective.carbohydrates_max = 170
-    objective.carbohydrates_min = 150
-    objective.protein_max = 170
-    objective.protein_min = 150
-    objective.fat_max = 40
-    objective.fat_min = 30
+    objective: Objectives = Objectives.objects.create(calories_max=2000, calories_min=1500,
+                                                      carbohydrates_max=170, carbohydrates_min=150,
+                                                      protein_max = 170, protein_min = 150,
+                                                      fat_max = 40,fat_min = 30)
+    # objective.calories_max = 2000
+    # objective.calories_min = 1500
+    # objective.carbohydrates_max = 170
+    # objective.carbohydrates_min = 150
+    # objective.protein_max = 170
+    # objective.protein_min = 150
+    # objective.fat_max = 40
+    # objective.fat_min = 30
     objective.save()
     return objective
 

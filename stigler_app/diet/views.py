@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 
-from .db_methods import create_tag_if_not_exists
+from .db_methods import create_tag_if_not_exists, create_group_if_not_exists, create_user_if_not_exists, create_type_if_not_exists
 from .forms import CreateUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
