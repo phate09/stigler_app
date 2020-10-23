@@ -56,6 +56,16 @@ def home(request):
     context = {}
     return render(request, "diet/dashboard.html", context)
 
+@login_required(login_url="login")
+# @allowed_users(allowed_roles=["admin"])
+def userSettings(request):
+    form = CreateUserForm()
+    customer = Customer.objects.get(user=request.user)
+    objectives = customer.objectives
+    context = {'form': form, 'objectives': objectives, 'customer':customer}
+    return render(request, "diet/user_settings.html", context)
+
+
 
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["admin"])
@@ -97,7 +107,7 @@ def deleteRecipe(request, pk):
 
 
 @login_required(login_url="login")
-@allowed_users(allowed_roles=["admin"])
+# @allowed_users(allowed_roles=["admin"])
 def view_recipe(request, pk):
     recipe = Recipe.objects.get(id=pk)
     ingredients = recipe.ingredient_set.all()
@@ -107,7 +117,6 @@ def view_recipe(request, pk):
     ingredients = myFilter.qs
     context = {'recipe': recipe, 'ingredients': ingredients, 'ingredients_count': ingredients_count, 'myFilter': myFilter, "tags": tags}
     return render(request, "diet/recipe.html", context)
-
 
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["admin"])
