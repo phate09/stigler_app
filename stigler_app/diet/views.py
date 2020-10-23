@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .decorators import unauthenticated_user, allowed_users
 from .models import *
-from .forms import CreateRecipeForm, IngredientForm, TypeForm
+from .forms import CreateRecipeForm, IngredientForm, TypeForm, UpdateCustomerForm
 from .filters import IngredientFilter
 from django.contrib.auth.decorators import login_required
 
@@ -58,7 +58,6 @@ def home(request):
     context = {}
     return render(request, "diet/dashboard.html", context)
 
-
 @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])
 def userSettings(request):
@@ -95,6 +94,19 @@ def updateRecipe(request, pk):
             return redirect('/')
     context = {'form': form}
     return render(request, 'diet/recipe_form.html', context)
+
+@login_required(login_url="login")
+# @allowed_users(allowed_roles=["admin"])
+def updateCustomer(request, pk):
+    recipe = Customer.objects.get(id=pk)
+    form = UpdateCustomerForm(instance=recipe)
+    if request.method == "POST":
+        form = UpdateCustomerForm(request.POST, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {'form': form}
+    return render(request, 'diet/customer_form.html', context)
 
 
 @login_required(login_url="login")

@@ -35,6 +35,12 @@ class CreateRecipeForm(forms.ModelForm):
         model = Recipe
         fields = "__all__"
 
+class UpdateCustomerForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = "__all__"
+        exclude = ['user', 'objectives']
+
 
 class CreateRecipeAdmin(admin.ModelAdmin):
     form = CreateRecipeForm

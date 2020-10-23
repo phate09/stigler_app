@@ -13,6 +13,7 @@ class Objectives(models.Model):
     fat_max = models.FloatField()
     fat_min = models.FloatField()
 
+GENDER = (('female', 'Female'),('male', 'Male'),('none', 'None'))
 
 def default_new_objective():
     objective: Objectives = Objectives.objects.create(calories_max=2000, calories_min=1500,
@@ -37,6 +38,9 @@ class Customer(models.Model):
     name = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True, blank=True)
     email = models.CharField(max_length=200, null=True, blank=True)
+    height = models.FloatField(blank=True, null=True)
+    weight = models.FloatField(blank=True, null=True)
+    gender = models.CharField(max_length=200, null=True, choices=GENDER)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     profile_pic = models.ImageField(default="logo2.png", null=True, blank=True)
 
