@@ -4,3 +4,8 @@ channels:
   - defaults
 dependencies:
   - python=3.7
+  - pip
+  - pip:
+      - django
+      - pillow
+      - django-filters
