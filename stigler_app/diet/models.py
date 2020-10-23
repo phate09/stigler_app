@@ -14,12 +14,26 @@ class Objectives(models.Model):
     fat_min = models.FloatField()
 
 
+def default_new_objective():
+    objective: Objectives = Objectives.objects.create()
+    objective.calories_max = 2000
+    objective.calories_min = 1500
+    objective.carbohydrates_max = 170
+    objective.carbohydrates_min = 150
+    objective.protein_max = 170
+    objective.protein_min = 150
+    objective.fat_max = 40
+    objective.fat_min = 30
+    objective.save()
+    return objective
+
+
 class Customer(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-    objectives = models.OneToOneField(Objectives, null=True, blank=True, on_delete=models.CASCADE)
+    objectives = models.OneToOneField(Objectives, null=True, blank=True, on_delete=models.CASCADE, default=default_new_objective)
     name = models.CharField(max_length=200, null=True)
-    phone = models.CharField(max_length=200, null=True)
-    email = models.CharField(max_length=200, null=True)
+    phone = models.CharField(max_length=200, null=True, blank=True)
+    email = models.CharField(max_length=200, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     profile_pic = models.ImageField(default="logo2.png", null=True, blank=True)
 

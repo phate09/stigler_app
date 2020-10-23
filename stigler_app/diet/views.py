@@ -1,11 +1,13 @@
-from django.shortcuts import render
-from .forms import CreateUserForm, CustomerForm
+from django.http import HttpResponse
+
+from .db_methods import create_tag_if_not_exists
+from .forms import CreateUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .decorators import unauthenticated_user, allowed_users, admin_only
-from .models import Product, Customer, Recipe, Ingredient
+from .decorators import unauthenticated_user, allowed_users
+from .models import *
 from .forms import CreateRecipeForm, IngredientForm, TypeForm
 from .filters import IngredientFilter
 from django.contrib.auth.decorators import login_required
@@ -56,15 +58,15 @@ def home(request):
     context = {}
     return render(request, "diet/dashboard.html", context)
 
+
 @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])
 def userSettings(request):
     form = CreateUserForm()
     customer = Customer.objects.get(user=request.user)
     objectives = customer.objectives
-    context = {'form': form, 'objectives': objectives, 'customer':customer}
+    context = {'form': form, 'objectives': objectives, 'customer': customer}
     return render(request, "diet/user_settings.html", context)
-
 
 
 @login_required(login_url="login")
@@ -117,6 +119,7 @@ def view_recipe(request, pk):
     ingredients = myFilter.qs
     context = {'recipe': recipe, 'ingredients': ingredients, 'ingredients_count': ingredients_count, 'myFilter': myFilter, "tags": tags}
     return render(request, "diet/recipe.html", context)
+
 
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["admin"])
@@ -176,3 +179,21 @@ def deleteIngredient(request, pk):
 def recipes(request):
     recipes = Recipe.objects.all()
     return render(request, "diet/recipes.html", {'recipes': recipes})
+
+
+def init_data(request):
+    create_group_if_not_exists("admin")
+    create_group_if_not_exists("customer")
+    create_user_if_not_exists("alessandra", "admin")
+    create_user_if_not_exists("olivia", "admin")
+    create_user_if_not_exists("edoardo", "admin")
+    create_tag_if_not_exists("Vegetarian")
+    create_tag_if_not_exists("Vegan")
+    create_tag_if_not_exists("Gluten-Free")
+    types = ["Flour", "Sugar", "Eggs", "Chicken", "Beef", "Carrots", "Onions", "Celery", "Pasta", "Oil", "Butter", "Tuna", "Apricot", "Pineapple", "Peas", "Beans"]
+    for t in types:
+        create_type_if_not_exists(t)
+    return HttpResponse("Database has been filled with default values")
+
+
+
