@@ -9,3 +9,4 @@ dependencies:
       - django
       - pillow
       - django-filter
+      - pyyaml
