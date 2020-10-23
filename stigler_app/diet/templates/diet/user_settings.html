@@ -45,13 +45,39 @@
     </div>
     <div class="col-sm">
         <div class="card card-body">
-            <h5 class="card-title">Objectives</h5>
-        <th>Objectives</th>
-                    <td> devo capire come si mette</td>
-        </div>
-    </div>
-</div>
+            <table class = "table table-borderless">
+                <thead>
+                    <tr>
+                        <th class="card-title">
+                            <h5><b>Objectives</b></h5>
+                        </th>
+                        <td scope="col">Min</td>
+                        <td scope="col">Max</td>
+                    </tr>
+                    <tr>
+                        <th>Calories</th>
+                        <td>{{customer.objectives.calories_min}} kcal</td>
+                        <td>{{customer.objectives.calories_max}} kcal</td>
 
+                    </tr>
+                    <tr>
+                        <th>Carbohydrates</th>
+                        <td>{{customer.objectives.carbohydrates_min}} g</td>
+                        <td>{{customer.objectives.carbohydrates_max}} g</td>
+                    </tr>
+                    <tr>
+                        <th>Protein</th>
+                        <td>{{customer.objectives.protein_min}} g</td>
+                        <td>{{customer.objectives.protein_max}} g</td>
+                    </tr>
+                    <tr>
+                        <th>Fat</th>
+                        <td>{{customer.objectives.fat_min}} g</td>
+                        <td>{{customer.objectives.fat_max}} g</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
                 {% for i in user_settings %}
 
                 {%endfor%}
