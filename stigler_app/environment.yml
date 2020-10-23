@@ -8,4 +8,4 @@ dependencies:
   - pip:
       - django
       - pillow
-      - django-filters
+      - django-filter
