@@ -1,0 +1,59 @@
+{%  extends 'diet/main.html' %}
+
+{% block content %}
+
+<br>
+
+<div class="row">
+    <div class="col-sm">
+        <div class="card card-body">
+            <h5>
+                <span style="color:blue;font-weight:bold">
+                    {{request.user}}
+                </span>
+                personal settings
+            </h5>
+        </div>
+        <div class="card card-body">
+            <h5 class="card-title">Contact informations</h5>
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{customer.name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{customer.email}}</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td>devo capire come si mette</td>
+                    </tr>
+                <tr>
+                        <th>Height</th>
+                        <td>devo capire come si mette</td>
+                </tr>
+                <tr>
+                        <th>Weight</th>
+                        <td>devo capire come si mette</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="card card-body">
+            <h5 class="card-title">Objectives</h5>
+        <th>Objectives</th>
+                    <td> devo capire come si mette</td>
+        </div>
+    </div>
+</div>
+
+                {% for i in user_settings %}
+
+                {%endfor%}
+    </div>
+</div>
+
+{% endblock content %}

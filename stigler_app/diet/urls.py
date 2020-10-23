@@ -19,6 +19,12 @@ from . import views
 urlpatterns = [path('', views.home, name="home"),
                # path('products/', views.products, name="products"),
                path('recipes/', views.recipes, name="recipes"),
+
+               # path('recipes/', views.user, name="user"),
+
+               # aggiungi
+
+               path("user_settings/", views.userSettings, name="user_settings"),
                # path('user/', views.userPage, name="user_page"),
                path('view_recipe/<str:pk>/', views.view_recipe, name="view_recipe"),
                path("create_recipe/", views.createRecipe, name="create_recipe"),
