@@ -41,17 +41,20 @@
                             </tr>
                         </thead>
                     </table>
+                    <a class="btn btn-primary btn-block" href="{% url 'update_customer' customer.id %}">
+                    Edit
+                    </a>
                 </div>
                 <div class="col-md">
                     <h5 class="card-title">Objectives
                     </h5>
-                     <div class="card-body">
-                     <table class = "table table-borderless">
+                    <div class="card-body">
+                    <table class = "table table-borderless">
                         <thead>
                             <tr>
-                                <th scope="col">    </th>
-                                <td scope="col">Min</td>
-                                <td scope="col">Max</td>
+                                <th></th>
+                                <td>Min</td>
+                                <td>Max</td>
                             </tr>
                             <tr>
                                 <th>Calories</th>
@@ -75,10 +78,16 @@
                             </tr>
                         </thead>
                      </table>
+                     <a class="btn btn-primary btn-block" href="{% url 'recipes' %}">
+                     Edit
+                     </a>
+                     <a class="btn btn-primary btn-block" href="{% url 'recipes' %}">
+                     Test
+                     </a>
                 </div>
             </div>
-                {% for i in user_settings %}
-                {%endfor%}
+            {% for i in user_settings %}
+            {%endfor%}
         </div>
     </div>
 </div>
