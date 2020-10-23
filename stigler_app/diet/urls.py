@@ -31,6 +31,7 @@ urlpatterns = [path('', views.home, name="home"),
                path("update_recipe/<str:pk>/", views.updateRecipe, name="update_recipe"),
 
                path("update_customer/<str:pk>/", views.updateCustomer, name="update_customer"),
+               path("update_objectives/<str:pk>/", views.updateObjectives, name="update_objectives"),
 
                path("delete_recipe/<str:pk>/", views.deleteRecipe, name="delete_recipe"),
                path("create_type/", views.addType, name="create_type"),

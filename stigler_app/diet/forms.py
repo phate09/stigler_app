@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Ingredient, Customer, Recipe,Type
+from .models import Ingredient, Customer, Recipe,Type, Objectives
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
@@ -41,6 +41,10 @@ class UpdateCustomerForm(forms.ModelForm):
         fields = "__all__"
         exclude = ['user', 'objectives']
 
+class UpdateObjectivesForm(forms.ModelForm):
+    class Meta:
+        model = Objectives
+        fields = "__all__"
 
 class CreateRecipeAdmin(admin.ModelAdmin):
     form = CreateRecipeForm

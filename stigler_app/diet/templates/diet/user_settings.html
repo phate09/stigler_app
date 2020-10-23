@@ -2,16 +2,16 @@
 
 {% block content %}
 
-<br>
+<br xmlns="http://www.w3.org/1999/html">
 <div class="card">
   <div class="card-header">
-            <h5>
-                <span style="color:blue;font-weight:bold">
-                    {{request.user}}
-                </span>
-                personal settings
-            </h5>
-        </div>
+    <h5>
+        <span style="color:blue;font-weight:bold">
+            {{request.user}}
+        </span>
+        personal settings
+    </h5>
+    </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md">
@@ -78,10 +78,10 @@
                             </tr>
                         </thead>
                      </table>
-                     <a class="btn btn-primary btn-block" href="{% url 'recipes' %}">
+                     <a class="btn btn-primary btn-block" href="{% url 'update_objectives' objectives.id %}">
                      Edit
                      </a>
-                     <a class="btn btn-primary btn-block" href="{% url 'recipes' %}">
+                     <a class="btn btn-primary btn-block" href="">
                      Test
                      </a>
                 </div>
