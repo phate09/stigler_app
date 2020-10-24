@@ -332,6 +332,11 @@ def handle_uploaded_file(request):
 
     df_macro = pd.read_excel('import.xlsx', 2)
     handle_df_macros(df_macro)
+    df_recipes = pd.read_excel('import.xlsx', 0)
+    handle_df_recipes(df_recipes)
+    df_ingredients = pd.read_excel('import.xlsx', 1)
+    handle_df_ingredients(df_ingredients)
+    # messages.success(request,"All items imported correctly")
     return redirect('/')
 
 

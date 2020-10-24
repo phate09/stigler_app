@@ -55,3 +55,32 @@ def create_product_if_not_exists(name, price, amount, calories, carbs, protein, 
         return product
     else:
         return query[0]
+
+
+def create_recipe_if_not_exists(name, servings):
+    query = Recipe.objects.filter(name=name)
+    if len(query) == 0:
+        recipe = Recipe()
+        recipe.name = name
+        recipe.servings = servings
+        recipe.save()
+        print(f"Created {name} recipe")
+        return recipe
+    else:
+        return query[0]
+
+
+def create_ingredient_if_not_exist(recipe_name, type_name, amount):
+    recipe = Recipe.objects.filter(name=recipe_name)[0]
+    type_item = create_type_if_not_exists(type_name)
+    query = Ingredient.objects.filter(recipe=recipe, type=type_item)
+    if len(query) == 0:
+        ingredient = Ingredient()
+        ingredient.recipe = recipe
+        ingredient.type = type_item
+        ingredient.amount = amount
+        ingredient.save()
+        print(f"Created {recipe.name} - {type_item.name} - {amount} ingredient")
+        return ingredient
+    else:
+        return query[0]
