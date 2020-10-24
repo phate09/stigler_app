@@ -1,14 +1,14 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from .db_methods import create_tag_if_not_exists, create_group_if_not_exists, create_user_if_not_exists, create_type_if_not_exists
-from .forms import CreateUserForm
+from .forms import CreateUserForm, UploadFileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .decorators import unauthenticated_user, allowed_users
 from .models import *
-from .forms import CreateRecipeForm, IngredientForm, TypeForm, UpdateCustomerForm,UpdateObjectivesForm
+from .forms import CreateRecipeForm, IngredientForm, TypeForm, UpdateCustomerForm, UpdateObjectivesForm
 from .filters import IngredientFilter
 from django.contrib.auth.decorators import login_required
 
@@ -58,6 +58,7 @@ def home(request):
     context = {}
     return render(request, "diet/dashboard.html", context)
 
+
 @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])
 def userSettings(request):
@@ -76,7 +77,7 @@ def createRecipe(request):
         form = CreateRecipeForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('recipes')
     context = {'form': form}
     return render(request, 'diet/recipe_form.html', context)
 
@@ -91,9 +92,10 @@ def updateRecipe(request, pk):
         form = CreateRecipeForm(request.POST, instance=recipe)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('recipes')
     context = {'form': form}
     return render(request, 'diet/recipe_form.html', context)
+
 
 @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])
@@ -104,9 +106,10 @@ def updateCustomer(request, pk):
         form = UpdateCustomerForm(request.POST, instance=recipe)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('user_settings')
     context = {'form': form}
     return render(request, 'diet/customer_form.html', context)
+
 
 @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])
@@ -117,7 +120,7 @@ def updateObjectives(request, pk):
         form = UpdateObjectivesForm(request.POST, instance=recipe)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('user_settings')
     context = {'form': form}
     return render(request, 'diet/objectives_form.html', context)
 
@@ -128,7 +131,7 @@ def deleteRecipe(request, pk):
     recipe = Recipe.objects.get(id=pk)
     if request.method == "POST":
         recipe.delete()
-        return redirect('/')
+        return redirect('recipes')
     context = {'item': recipe}
     return render(request, 'diet/delete_recipe.html', context)
 
@@ -221,4 +224,19 @@ def init_data(request):
     return HttpResponse("Database has been filled with default values")
 
 
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['file'])
+            return HttpResponseRedirect('/')
+    else:
+        form = UploadFileForm()
+    return render(request, 'upload_file.html', {'form': form})
 
+
+def handle_uploaded_file(f):
+    print(type(f))
+    # with open('some/file/name.txt', 'wb+') as destination:
+    #     for chunk in f.chunks():
+    #         destination.write(chunk)
