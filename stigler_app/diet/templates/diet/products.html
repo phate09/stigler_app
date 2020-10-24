@@ -1,0 +1,33 @@
+{%  extends 'diet/main.html' %}
+
+{% block content %}
+
+<br>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Products</h5>
+        </div>
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Tags</th>
+                </tr>
+                {% for i in recipes%}
+                <tr>
+                    <td><a class="" href="{%url 'view_recipe' i.id%}">{{i.name}}</a></td>
+                    <td>{{i.tags}}</td>
+                    <td><a class="btn btn-sm btn-info" href="">Update</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+                </tr>
+                {%endfor%}
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

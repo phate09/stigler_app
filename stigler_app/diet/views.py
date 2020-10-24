@@ -198,7 +198,13 @@ def deleteIngredient(request, pk):
 
 
 @login_required(login_url="login")
-@allowed_users(allowed_roles=["admin"])
+# @allowed_users(allowed_roles=["admin"])
 def recipes(request):
     recipes = Recipe.objects.all()
     return render(request, "diet/recipes.html", {'recipes': recipes})
+
+@login_required(login_url="login")
+# @allowed_users(allowed_roles=["admin"])
+def products(request):
+    products = Product.objects.all()
+    return render(request, "diet/products.html", {'products': products})
