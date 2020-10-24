@@ -2,57 +2,93 @@
 
 {% block content %}
 
-<br>
-
-<div class="row">
-    <div class="col-sm">
-        <div class="card card-body">
-            <h5>
-                <span style="color:blue;font-weight:bold">
-                    {{request.user}}
-                </span>
-                personal settings
-            </h5>
-        </div>
-        <div class="card card-body">
-            <h5 class="card-title">Contact informations</h5>
-            <table class="table table-borderless">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <td>{{customer.name}}</td>
-                    </tr>
-                    <tr>
-                        <th>Email</th>
-                        <td>{{customer.email}}</td>
-                    </tr>
-                    <tr>
-                        <th>Gender</th>
-                        <td>devo capire come si mette</td>
-                    </tr>
-                <tr>
-                        <th>Height</th>
-                        <td>devo capire come si mette</td>
-                </tr>
-                <tr>
-                        <th>Weight</th>
-                        <td>devo capire come si mette</td>
-                </tr>
-            </table>
-        </div>
+<br xmlns="http://www.w3.org/1999/html">
+<div class="card">
+  <div class="card-header">
+    <h5>
+        <span style="color:blue;font-weight:bold">
+            {{request.user}}
+        </span>
+        personal settings
+    </h5>
     </div>
-    <div class="col-sm">
-        <div class="card card-body">
-            <h5 class="card-title">Objectives</h5>
-        <th>Objectives</th>
-                    <td> devo capire come si mette</td>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md">
+                    <h5 class="card-title">Contact informations
+                    </h5>
+                    <table class = "table table-borderless">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{customer.name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{customer.email}}</td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td>{{customer.gender}}</td>
+                            </tr>
+                            <tr>
+                                <th>Height</th>
+                                <td>{{customer.height}}</td>
+                            </tr>
+                            <tr>
+                                <th>Weight</th>
+                                <td>{{customer.weight}}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <a class="btn btn-primary btn-block" href="{% url 'update_customer' customer.id %}">
+                    Edit
+                    </a>
+                </div>
+                <div class="col-md">
+                    <h5 class="card-title">Objectives
+                    </h5>
+                    <div class="card-body">
+                    <table class = "table table-borderless">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <td>Min</td>
+                                <td>Max</td>
+                            </tr>
+                            <tr>
+                                <th>Calories</th>
+                                <td>{{customer.objectives.calories_min}} kcal</td>
+                                <td>{{customer.objectives.calories_max}} kcal</td>
+                            </tr>
+                            <tr>
+                                <th>Carbohydrates</th>
+                                <td>{{customer.objectives.carbohydrates_min}} g</td>
+                                <td>{{customer.objectives.carbohydrates_max}} g</td>
+                            </tr>
+                            <tr>
+                                <th>Protein</th>
+                                <td>{{customer.objectives.protein_min}} g</td>
+                                <td>{{customer.objectives.protein_max}} g</td>
+                            </tr>
+                            <tr>
+                                <th>Fat</th>
+                                <td>{{customer.objectives.fat_min}} g</td>
+                                <td>{{customer.objectives.fat_max}} g</td>
+                            </tr>
+                        </thead>
+                     </table>
+                     <a class="btn btn-primary btn-block" href="{% url 'update_objectives' objectives.id %}">
+                     Edit
+                     </a>
+                     <a class="btn btn-primary btn-block" href="">
+                     Test
+                     </a>
+                </div>
+            </div>
+            {% for i in user_settings %}
+            {%endfor%}
         </div>
-    </div>
-</div>
-
-                {% for i in user_settings %}
-
-                {%endfor%}
     </div>
 </div>
 
