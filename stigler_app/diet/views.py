@@ -232,7 +232,7 @@ def upload_file(request):
             return HttpResponseRedirect('/')
     else:
         form = UploadFileForm()
-    return render(request, 'upload_file.html', {'form': form})
+    return render(request, 'diet/upload_file.html', {'form': form})
 
 
 def handle_uploaded_file(f):
