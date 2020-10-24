@@ -1,0 +1,41 @@
+.food{
+  background: url("/static/images/food.jpg") no-repeat center center;
+  background-size: cover;
+  margin: 0 auto;
+  padding: 10px 10px;
+  background-size: auto;
+  text-align: center;
+  min-width: 500px;
+}
+
+.header .container {
+  position: relative;
+  top: 200px;
+}
+
+.header h1 {
+  color: #fff;
+  line-height: 150px;
+  font-size: 80px;
+  margin-top: 80px;
+  margin-bottom: 80px;
+  text-transform: uppercase;
+  }
+
+h3{
+    color: #4D5D75 !important;
+    text-align: center;
+    font-size: 40px !important;
+    }
+
+  .center-justified {
+    text-align: center;
+    margin: 0 auto;
+    width: 70%;
+    line-height: 1.3em;
+    font-size: 18px;
+  }
+
+ p{
+    font-size:20px;
+ }
