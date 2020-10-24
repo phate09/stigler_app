@@ -1,9 +1,9 @@
 import pandas as pd
 import os
-from django.conf import settings
-DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': "/home/edoardo/Development/stigler_app/stigler_app/db.sqlite3", }}
-settings.configure(DATABASES)
-from stigler_app.diet.models import Recipe
+# from django.conf import settings
+# DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': "/home/edoardo/Development/stigler_app/stigler_app/db.sqlite3", }}
+# settings.configure(DATABASES)
+# from stigler_app.diet.models import Recipe
 
 
 def handle_df(df):
@@ -22,7 +22,7 @@ def handle_df(df):
             last_recipe = Recipe()
             last_recipe.name = name
             last_recipe.servings = servings
-        if pd.notnull(ingredient):
+        # if pd.notnull(ingredient):
 
 
 if __name__ == '__main__':
