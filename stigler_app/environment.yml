@@ -1,0 +1,12 @@
+name: stigler_app
+channels:
+  - http://conda.anaconda.org/gurobi
+  - defaults
+dependencies:
+  - python=3.7
+  - pip
+  - pip:
+      - django
+      - pillow
+      - django-filter
+      - pyyaml

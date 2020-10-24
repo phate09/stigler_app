@@ -1,11 +1,13 @@
-from django.shortcuts import render
-from .forms import CreateUserForm, CustomerForm
+from django.http import HttpResponse, HttpResponseRedirect
+
+from .db_methods import create_tag_if_not_exists, create_group_if_not_exists, create_user_if_not_exists, create_type_if_not_exists
+from .forms import CreateUserForm, UploadFileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .decorators import unauthenticated_user, allowed_users, admin_only
-from .models import Product, Customer, Recipe, Ingredient,Objectives, Type
+from .decorators import unauthenticated_user, allowed_users
+from .models import *
 from .forms import CreateRecipeForm, IngredientForm, TypeForm, UpdateCustomerForm, UpdateObjectivesForm
 from .filters import IngredientFilter
 from django.contrib.auth.decorators import login_required
@@ -56,15 +58,15 @@ def home(request):
     context = {}
     return render(request, "diet/dashboard.html", context)
 
+
 @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])
 def userSettings(request):
     form = CreateUserForm()
     customer = Customer.objects.get(user=request.user)
     objectives = customer.objectives
-    context = {'form': form, 'objectives': objectives, 'customer':customer}
+    context = {'form': form, 'objectives': objectives, 'customer': customer}
     return render(request, "diet/user_settings.html", context)
-
 
 
 @login_required(login_url="login")
@@ -75,7 +77,7 @@ def createRecipe(request):
         form = CreateRecipeForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('recipes')
     context = {'form': form}
     return render(request, 'diet/recipe_form.html', context)
 
@@ -90,9 +92,10 @@ def updateRecipe(request, pk):
         form = CreateRecipeForm(request.POST, instance=recipe)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('recipes')
     context = {'form': form}
     return render(request, 'diet/recipe_form.html', context)
+
 
 @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])
@@ -103,9 +106,10 @@ def updateCustomer(request, pk):
         form = UpdateCustomerForm(request.POST, instance=recipe)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('user_settings')
     context = {'form': form}
     return render(request, 'diet/customer_form.html', context)
+
 
 @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])
@@ -116,7 +120,7 @@ def updateObjectives(request, pk):
         form = UpdateObjectivesForm(request.POST, instance=recipe)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('user_settings')
     context = {'form': form}
     return render(request, 'diet/objectives_form.html', context)
 
@@ -127,7 +131,7 @@ def deleteRecipe(request, pk):
     recipe = Recipe.objects.get(id=pk)
     if request.method == "POST":
         recipe.delete()
-        return redirect('/')
+        return redirect('recipes')
     context = {'item': recipe}
     return render(request, 'diet/delete_recipe.html', context)
 
@@ -143,6 +147,7 @@ def view_recipe(request, pk):
     ingredients = myFilter.qs
     context = {'recipe': recipe, 'ingredients': ingredients, 'ingredients_count': ingredients_count, 'myFilter': myFilter, "tags": tags}
     return render(request, "diet/recipe.html", context)
+
 
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["admin"])
@@ -214,3 +219,36 @@ def products(request):
 def types(request):
     types = Type.objects.all()
     return render(request, "diet/types.html", {'types': types})
+
+
+def init_data(request):
+    create_group_if_not_exists("admin")
+    create_group_if_not_exists("customer")
+    create_user_if_not_exists("alessandra", "admin")
+    create_user_if_not_exists("olivia", "admin")
+    create_user_if_not_exists("edoardo", "admin")
+    create_tag_if_not_exists("Vegetarian")
+    create_tag_if_not_exists("Vegan")
+    create_tag_if_not_exists("Gluten-Free")
+    types = ["Flour", "Sugar", "Eggs", "Chicken", "Beef", "Carrots", "Onions", "Celery", "Pasta", "Oil", "Butter", "Tuna", "Apricot", "Pineapple", "Peas", "Beans"]
+    for t in types:
+        create_type_if_not_exists(t)
+    return HttpResponse("Database has been filled with default values")
+
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['file'])
+            return HttpResponseRedirect('/')
+    else:
+        form = UploadFileForm()
+    return render(request, 'upload_file.html', {'form': form})
+
+
+def handle_uploaded_file(f):
+    print(type(f))
+    # with open('some/file/name.txt', 'wb+') as destination:
+    #     for chunk in f.chunks():
+    #         destination.write(chunk)

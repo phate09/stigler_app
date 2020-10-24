@@ -43,5 +43,6 @@ urlpatterns = [path('', views.home, name="home"),
                path("register/",views.registerPage,name="register"),
                path("login/",views.loginPage,name="login"),
                path("logout/",views.logoutUser,name="logout"),
+               path("init/",views.init_data,name="init_db"),
                # path("account/",views.accountSettings,name="account"),
                ]
