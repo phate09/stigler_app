@@ -1,6 +1,6 @@
 import openpyxl
 from django.http import HttpResponse, HttpResponseRedirect
-
+from .excel import *
 from .db_methods import create_tag_if_not_exists, create_group_if_not_exists, create_user_if_not_exists, create_type_if_not_exists
 from .forms import CreateUserForm, UploadFileForm
 from django.contrib.auth import authenticate, login, logout
@@ -13,7 +13,6 @@ from .forms import CreateRecipeForm, IngredientForm, TypeForm, UpdateCustomerFor
 from .filters import IngredientFilter
 from django.contrib.auth.decorators import login_required
 import pandas as pd
-
 
 # Create your views here.
 @unauthenticated_user
@@ -245,6 +244,7 @@ def handle_uploaded_file(request):
 
     df = pd.read_excel('import.xlsx')
     print(df)
+    print(df.head())
     # wb = openpyxl.load_workbook("import.xlsx")
     # for row in wb.active.iter_rows(max_row=6):
     #     for cell in row:

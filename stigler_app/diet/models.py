@@ -82,6 +82,7 @@ class Product(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=200, null=True)
+    servings = models.FloatField(default=1)
     tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
