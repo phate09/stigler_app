@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 import pandas as pd
 from .optimisation import *
 
+
 # Create your views here.
 @unauthenticated_user
 def registerPage(request):
@@ -147,8 +148,8 @@ def view_recipe(request, pk):
     tags = recipe.tags.all()
     tags_msg = ""
     for t in tags:
-        tags_msg+=t.name+", "
-    tags_msg=tags_msg[:-2]
+        tags_msg += t.name + ", "
+    tags_msg = tags_msg[:-2]
     ingredients_count = recipe.ingredient_set.all().count()
     myFilter = IngredientFilter(request.GET, queryset=ingredients)
     ingredients = myFilter.qs
@@ -183,6 +184,7 @@ def addType(request):
     context = {'form': form}
     return render(request, 'diet/type_form.html', context)
 
+
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["admin"])
 def addProduct(request):
@@ -194,6 +196,7 @@ def addProduct(request):
             return redirect('/')
     context = {'form': form}
     return render(request, 'diet/product_form.html', context)
+
 
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["admin"])
@@ -207,6 +210,7 @@ def updateProduct(request, pk):
             return redirect('/')
     context = {'form': form}
     return render(request, 'diet/product_form.html', context)
+
 
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["admin"])
@@ -231,6 +235,7 @@ def deleteType(request, pk):
         return redirect('/')
     context = {'item': order}
     return render(request, 'diet/delete_type.html', context)
+
 
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["admin"])
@@ -275,6 +280,8 @@ def recipes(request):
     # myFilter = RecipeFilter(request.GET, queryset=recipes)
     # recipes = myFilter.qs
     return render(request, "diet/recipes.html", {'recipes': recipes})
+
+
 # ,{'myFilter': myFilter}
 
 @login_required(login_url="login")
@@ -283,11 +290,13 @@ def products(request):
     products = Product.objects.all()
     return render(request, "diet/products.html", {'products': products})
 
+
 @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])
 def types(request):
     types = Type.objects.all()
     return render(request, "diet/types.html", {'types': types})
+
 
 def init_data(request):
     create_group_if_not_exists("admin")
@@ -321,18 +330,14 @@ def upload_file(request):
 def handle_uploaded_file(request):
     # save the file in a temp destination
 
-    df = pd.read_excel('import.xlsx')
-    print(df)
-    print(df.head())
-    # wb = openpyxl.load_workbook("import.xlsx")
-    # for row in wb.active.iter_rows(max_row=6):
-    #     for cell in row:
-    #         print(cell.value, end=" ")
-    #     print()
+    df_macro = pd.read_excel('import.xlsx', 2)
+    handle_df_macros(df_macro)
     return redirect('/')
+
 
 def landingPage(request):
     return render(request, "diet/landingPage.html")
+
 
 def test(request):
     customer = Customer.objects.get(user=request.user)

@@ -67,6 +67,8 @@ class Product(models.Model):
     fat = models.FloatField()
     type = models.ForeignKey(Type, null=True, blank=True, on_delete=models.SET_NULL)
 
+    def __str__(self):
+        return self.name
     @property
     def price_density(self):
         return self.price / self.amount
