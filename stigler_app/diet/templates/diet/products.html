@@ -6,25 +6,31 @@
 
 <div class="row">
     <div class="col-md">
-        <div class="card card-body">
-            <h5>Products</h5>
-        </div>
-        <div class="card card-body">
-            <table class="table">
-                <tr>
-                    <th>Name</th>
-                    <th>Tags</th>
-                </tr>
-                {% for i in recipes%}
-                <tr>
-                    <td><a class="" href="{%url 'view_recipe' i.id%}">{{i.name}}</a></td>
-                    <td>{{i.tags}}</td>
-                    <td><a class="btn btn-sm btn-info" href="">Update</a></td>
-                    <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
-                </tr>
-                {%endfor%}
-
-            </table>
+        <div class="card">
+            <div class="card-title">
+                <h4>Products
+                </h4>
+            </div>
+            <div class="card-subtitle">
+                 <a class="btn btn-primary" href="{% url 'create_product'%}">
+                Create new
+                </a>
+            </div>
+            <div class="card-body">
+                <table  class = "table table-borderless">
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                        {% for i in products%}
+                        <tr>
+                            <td>{{i.name}}</td>
+                            <td><a class="btn btn-sm btn-info" href="{% url 'update_type' i.id %}">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="{%url 'delete_type' i.id%}">Delete</a></td>
+                        </tr>
+                        {%endfor%}
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -40,6 +40,7 @@ urlpatterns = [path('', views.home, name="home"),
 
                path("delete_recipe/<str:pk>/", views.deleteRecipe, name="delete_recipe"),
                path("create_type/", views.addType, name="create_type"),
+               path("create_product/", views.addProduct, name="create_product"),
                path("add_ingredient/<str:pk>/", views.addIngredient, name="add_ingredient"),
                path("update_ingredient/<str:pk>/", views.updateIngredient, name="update_ingredient"),
                path("delete_ingredient/<str:pk>/", views.deleteIngredient, name="delete_ingredient"),

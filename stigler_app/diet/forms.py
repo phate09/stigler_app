@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Ingredient, Customer, Recipe, Type, Objectives
+from .models import Ingredient, Customer, Recipe, Type, Objectives,Product
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
@@ -23,6 +23,11 @@ class IngredientForm(ModelForm):
 class TypeForm(ModelForm):
     class Meta:
         model = Type
+        fields = "__all__"
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
         fields = "__all__"
 
 

@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .decorators import unauthenticated_user, allowed_users
 from .models import *
-from .forms import CreateRecipeForm, IngredientForm, TypeForm, UpdateCustomerForm, UpdateObjectivesForm
+from .forms import CreateRecipeForm, IngredientForm, TypeForm, UpdateCustomerForm, UpdateObjectivesForm, ProductForm
 from .filters import IngredientFilter
 from django.contrib.auth.decorators import login_required
 
@@ -175,6 +175,18 @@ def addType(request):
             return redirect('/')
     context = {'form': form}
     return render(request, 'diet/type_form.html', context)
+
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
+def addProduct(request):
+    form = ProductForm()
+    if request.method == "POST":
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {'form': form}
+    return render(request, 'diet/product_form.html', context)
 
 
 @login_required(login_url="login")
