@@ -20,6 +20,7 @@ urlpatterns = [path('', views.home, name="home"),
                # path('products/', views.products, name="products"),
                path('recipes/', views.recipes, name="recipes"),
                path('products/', views.products, name="products"),
+               path('types/', views.types, name="types"),
 
                # path('recipes/', views.user, name="user"),
 

@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .decorators import unauthenticated_user, allowed_users, admin_only
-from .models import Product, Customer, Recipe, Ingredient,Objectives
+from .models import Product, Customer, Recipe, Ingredient,Objectives, Type
 from .forms import CreateRecipeForm, IngredientForm, TypeForm, UpdateCustomerForm, UpdateObjectivesForm
 from .filters import IngredientFilter
 from django.contrib.auth.decorators import login_required
@@ -208,3 +208,9 @@ def recipes(request):
 def products(request):
     products = Product.objects.all()
     return render(request, "diet/products.html", {'products': products})
+
+@login_required(login_url="login")
+# @allowed_users(allowed_roles=["admin"])
+def types(request):
+    types = Type.objects.all()
+    return render(request, "diet/types.html", {'types': types})
