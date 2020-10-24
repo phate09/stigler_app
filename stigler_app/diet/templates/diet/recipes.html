@@ -6,25 +6,32 @@
 
 <div class="row">
     <div class="col-md">
-        <div class="card card-body">
-            <h5>Recipes</h5>
-        </div>
-        <div class="card card-body">
-            <table class="table">
-                <tr>
-                    <th>Name</th>
-                    <th>Tags</th>
-                </tr>
-                {% for i in recipes%}
-                <tr>
-                    <td><a class="" href="{%url 'view_recipe' i.id%}">{{i.name}}</a></td>
-                    <td>{{i.tags}}</td>
-                    <td><a class="btn btn-sm btn-info" href="{%url 'update_recipe' i.id%}">Update</a></td>
-                    <td><a class="btn btn-sm btn-danger" href="{%url 'delete_recipe' i.id%}">Delete</a></td>
-                </tr>
-                {%endfor%}
-
-            </table>
+        <div class="card">
+            <div class="card-title">
+                <h4>Recipes
+                </h4>
+            </div>
+            <div class="card-subtitle">
+                 <a class="btn btn-primary" href="{% url 'create_recipe'%}">
+                Create new
+                </a>
+            </div>
+            <div class="card card-body">
+                <table class="table-borderless">
+                    <tr>
+                        <th>Name</th>
+                        <th>Tags</th>
+                    </tr>
+                    {% for i in recipes%}
+                    <tr>
+                        <td><a class="" href="{%url 'view_recipe' i.id%}">{{i.name}}</a></td>
+                        <td>{{i.tags}}</td>
+                        <td><a class="btn btn-sm btn-info" href="{%url 'update_recipe' i.id%}">Update</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="{%url 'delete_recipe' i.id%}">Delete</a></td>
+                    </tr>
+                    {%endfor%}
+                </table>
+            </div>
         </div>
     </div>
 
