@@ -1,3 +1,4 @@
+import openpyxl
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .db_methods import create_tag_if_not_exists, create_group_if_not_exists, create_user_if_not_exists, create_type_if_not_exists
@@ -11,6 +12,7 @@ from .models import *
 from .forms import CreateRecipeForm, IngredientForm, TypeForm, UpdateCustomerForm, UpdateObjectivesForm
 from .filters import IngredientFilter
 from django.contrib.auth.decorators import login_required
+import pandas as pd
 
 
 # Create your views here.
@@ -228,15 +230,24 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])
-            return HttpResponseRedirect('/')
+            f = request.FILES['file']
+            with open('import.xlsx', 'wb+') as destination:
+                destination.write(f.read())
+            messages.info(request, "File imported successfully")
+            return redirect("/")
     else:
         form = UploadFileForm()
     return render(request, 'diet/upload_file.html', {'form': form})
 
 
-def handle_uploaded_file(f):
-    print(type(f))
-    # with open('some/file/name.txt', 'wb+') as destination:
-    #     for chunk in f.chunks():
-    #         destination.write(chunk)
+def handle_uploaded_file(request):
+    # save the file in a temp destination
+
+    df = pd.read_excel('import.xlsx')
+    print(df)
+    # wb = openpyxl.load_workbook("import.xlsx")
+    # for row in wb.active.iter_rows(max_row=6):
+    #     for cell in row:
+    #         print(cell.value, end=" ")
+    #     print()
+    return redirect('/')

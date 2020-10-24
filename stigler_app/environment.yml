@@ -10,3 +10,5 @@ dependencies:
       - pillow
       - django-filter
       - pyyaml
+      - openpyxl
+      - pandas

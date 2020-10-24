@@ -31,7 +31,7 @@
         }
 
         .container2 {
-            float: right
+            float: right;
         }
 
     </style>
@@ -43,13 +43,11 @@
 <hr>
 <footer class="footer">
     <div class="container">
-        <span class="text-muted">About</span>
-        <span class="text-muted">About</span>
-        <span class="text-muted">About</span>
-        <span class="text-muted">About</span>
-        <span class="text-muted">About</span>
+        {% for message in messages %}
+        <span id="messages">{{message}}</span>
+        {%endfor%}
         <div class="container2">
-            <span class="text-muted">Limited company</span>
+            <span class="text-muted">Stigler: balanced diet on a budget</span>
         </div>
     </div>
 </footer>

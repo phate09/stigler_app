@@ -35,5 +35,6 @@ urlpatterns = [path('', views.home, name="home"),
                path("login/",views.loginPage,name="login"),
                path("logout/",views.logoutUser,name="logout"),
                path("init/",views.init_data,name="init_db"),
-               path("import_file/",views.upload_file,name = "import_file")
+               path("import_file/",views.upload_file,name = "import_file"),
+               path("import_local/",views.handle_uploaded_file,name = "import_local")
                ]
