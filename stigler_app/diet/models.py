@@ -61,11 +61,11 @@ class Type(models.Model):
     def __str__(self):
         return self.name
 
-
 UNIT = (('ml', 'ml'), ('g', 'g'), ('l', 'l'), ('kg', 'kg'), ('unit', 'unit'))
 
 
 class Product(models.Model):
+    name = models.CharField(max_length=200, null=True)
     price = models.FloatField()
     amount = models.FloatField()
     unit = models.CharField(max_length=200, null=True, choices=UNIT)

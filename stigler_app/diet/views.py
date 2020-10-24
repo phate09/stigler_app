@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .decorators import unauthenticated_user, allowed_users
 from .models import *
-from .forms import CreateRecipeForm, IngredientForm, TypeForm, UpdateCustomerForm, UpdateObjectivesForm
+from .forms import CreateRecipeForm, IngredientForm, TypeForm, UpdateCustomerForm, UpdateObjectivesForm, ProductForm
 from .filters import IngredientFilter
 from django.contrib.auth.decorators import login_required
 import pandas as pd
@@ -177,6 +177,65 @@ def addType(request):
     context = {'form': form}
     return render(request, 'diet/type_form.html', context)
 
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
+def addProduct(request):
+    form = ProductForm()
+    if request.method == "POST":
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {'form': form}
+    return render(request, 'diet/product_form.html', context)
+
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
+def updateProduct(request, pk):
+    order = Product.objects.get(id=pk)
+    form = ProductForm(instance=order)
+    if request.method == "POST":
+        form = ProductForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {'form': form}
+    return render(request, 'diet/product_form.html', context)
+
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
+def updateType(request, pk):
+    order = Type.objects.get(id=pk)
+    form = TypeForm(instance=order)
+    if request.method == "POST":
+        form = TypeForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {'form': form}
+    return render(request, 'diet/type_form.html', context)
+
+
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
+def deleteType(request, pk):
+    order = Type.objects.get(id=pk)
+    if request.method == "POST":
+        order.delete()
+        return redirect('/')
+    context = {'item': order}
+    return render(request, 'diet/delete_type.html', context)
+
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
+def deleteProduct(request, pk):
+    order = Product.objects.get(id=pk)
+    if request.method == "POST":
+        order.delete()
+        return redirect('/')
+    context = {'item': order}
+    return render(request, 'diet/delete_product.html', context)
+
 
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["admin"])
@@ -204,11 +263,22 @@ def deleteIngredient(request, pk):
 
 
 @login_required(login_url="login")
-@allowed_users(allowed_roles=["admin"])
+# @allowed_users(allowed_roles=["admin"])
 def recipes(request):
     recipes = Recipe.objects.all()
     return render(request, "diet/recipes.html", {'recipes': recipes})
 
+@login_required(login_url="login")
+# @allowed_users(allowed_roles=["admin"])
+def products(request):
+    products = Product.objects.all()
+    return render(request, "diet/products.html", {'products': products})
+
+@login_required(login_url="login")
+# @allowed_users(allowed_roles=["admin"])
+def types(request):
+    types = Type.objects.all()
+    return render(request, "diet/types.html", {'types': types})
 
 def init_data(request):
     create_group_if_not_exists("admin")
