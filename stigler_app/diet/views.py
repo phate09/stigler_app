@@ -251,3 +251,6 @@ def handle_uploaded_file(request):
     #         print(cell.value, end=" ")
     #     print()
     return redirect('/')
+
+def landingPage(request):
+    return render(request, "diet/landingPage.html")
