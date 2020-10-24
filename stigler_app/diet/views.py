@@ -179,6 +179,31 @@ def addType(request):
 
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["admin"])
+def updateType(request, pk):
+    order = Type.objects.get(id=pk)
+    form = TypeForm(instance=order)
+    if request.method == "POST":
+        form = TypeForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {'form': form}
+    return render(request, 'diet/type_form.html', context)
+
+
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
+def deleteType(request, pk):
+    order = Type.objects.get(id=pk)
+    if request.method == "POST":
+        order.delete()
+        return redirect('/')
+    context = {'item': order}
+    return render(request, 'diet/delete_type.html', context)
+
+
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
 def updateIngredient(request, pk):
     order = Ingredient.objects.get(id=pk)
     form = IngredientForm(instance=order)
@@ -219,7 +244,6 @@ def products(request):
 def types(request):
     types = Type.objects.all()
     return render(request, "diet/types.html", {'types': types})
-
 
 def init_data(request):
     create_group_if_not_exists("admin")
