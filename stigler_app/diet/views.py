@@ -14,6 +14,7 @@ from .filters import IngredientFilter
 # from .filters import RecipeFilter
 from django.contrib.auth.decorators import login_required
 import pandas as pd
+from .optimisation import *
 
 # Create your views here.
 @unauthenticated_user
@@ -332,3 +333,8 @@ def handle_uploaded_file(request):
 
 def landingPage(request):
     return render(request, "diet/landingPage.html")
+
+def test(request):
+    customer = Customer.objects.get(user=request.user)
+    optimise_diet(customer)
+    return redirect("/")

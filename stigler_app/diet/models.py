@@ -13,21 +13,12 @@ class Objectives(models.Model):
     fat_max = models.FloatField()
     fat_min = models.FloatField()
 
-GENDER = (('female', 'Female'),('male', 'Male'),('none', 'None'))
+
+GENDER = (('female', 'Female'), ('male', 'Male'), ('none', 'None'))
+
 
 def default_new_objective():
-    objective: Objectives = Objectives.objects.create(calories_max=2000, calories_min=1500,
-                                                      carbohydrates_max=170, carbohydrates_min=150,
-                                                      protein_max = 170, protein_min = 150,
-                                                      fat_max = 40,fat_min = 30)
-    # objective.calories_max = 2000
-    # objective.calories_min = 1500
-    # objective.carbohydrates_max = 170
-    # objective.carbohydrates_min = 150
-    # objective.protein_max = 170
-    # objective.protein_min = 150
-    # objective.fat_max = 40
-    # objective.fat_min = 30
+    objective: Objectives = Objectives.objects.create(calories_max=2000, calories_min=1500, carbohydrates_max=170, carbohydrates_min=150, protein_max=170, protein_min=150, fat_max=40, fat_min=30)
     objective.save()
     return objective
 
@@ -61,6 +52,7 @@ class Type(models.Model):
     def __str__(self):
         return self.name
 
+
 UNIT = (('ml', 'ml'), ('g', 'g'), ('l', 'l'), ('kg', 'kg'), ('unit', 'unit'))
 
 
@@ -87,12 +79,18 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.name
+
     def tag_list(self):
         tags_msg = ""
         for t in self.tags:
             tags_msg += t.name + ", "
         tags_msg = tags_msg[:-2]
         return tags_msg
+
+    def simpleMacros(self):
+        for ingredient in self.ingredient_set.all():
+            print(ingredient.type.product_set.all()[0].name)  # print(ingredient.product_set.all()[0].name)
+
 
 class Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe, null=True, on_delete=models.CASCADE)

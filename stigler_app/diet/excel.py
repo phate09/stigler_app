@@ -1,11 +1,9 @@
+#!/usr/bin/env python
+
 import pandas as pd
 import os
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stigler_app.settings')
-# from django.conf import settings
-# DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': "/home/edoardo/Development/stigler_app/stigler_app/db.sqlite3", }}
-# settings.configure(DATABASES)
+import sys
 
-# from stigler_app.diet.models import Recipe
 
 
 def handle_df(df):
@@ -28,9 +26,11 @@ def handle_df(df):
 
 if __name__ == '__main__':
     pd.options.display.max_columns = 10
-
-    from django.core.management import setup_environ
-    from django.conf import settings
-
+    sys.path.insert(0,"/home/edoardo/Development/stigler_app")
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'stigler_app.settings'
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stigler_app.settings')
+    import django
+    django.setup()
+    from stigler_app.diet.models import Recipe
     df = pd.read_excel("/home/edoardo/Development/stigler_app/stigler_app/import.xlsx")
     handle_df(df)
