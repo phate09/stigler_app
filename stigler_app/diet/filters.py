@@ -7,6 +7,9 @@ from .models import Ingredient
 class IngredientFilter(django_filters.FilterSet):
     type__name = CharFilter(field_name="type__name", lookup_expr="icontains")
 
+# class RecipeFilter(django_filters.FilterSet):
+#     type__name = CharFilter(field_name="type__name", lookup_expr="icontains")
+
     # class Meta:
     #     model = Ingredient
     #     fields = "__all__"

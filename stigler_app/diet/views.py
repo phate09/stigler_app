@@ -11,6 +11,7 @@ from .decorators import unauthenticated_user, allowed_users
 from .models import *
 from .forms import CreateRecipeForm, IngredientForm, TypeForm, UpdateCustomerForm, UpdateObjectivesForm, ProductForm
 from .filters import IngredientFilter
+# from .filters import RecipeFilter
 from django.contrib.auth.decorators import login_required
 import pandas as pd
 
@@ -143,10 +144,14 @@ def view_recipe(request, pk):
     recipe = Recipe.objects.get(id=pk)
     ingredients = recipe.ingredient_set.all()
     tags = recipe.tags.all()
+    tags_msg = ""
+    for t in tags:
+        tags_msg+=t.name+", "
+    tags_msg=tags_msg[:-2]
     ingredients_count = recipe.ingredient_set.all().count()
     myFilter = IngredientFilter(request.GET, queryset=ingredients)
     ingredients = myFilter.qs
-    context = {'recipe': recipe, 'ingredients': ingredients, 'ingredients_count': ingredients_count, 'myFilter': myFilter, "tags": tags}
+    context = {'recipe': recipe, 'ingredients': ingredients, 'ingredients_count': ingredients_count, 'myFilter': myFilter, "tags": tags_msg}
     return render(request, "diet/recipe.html", context)
 
 
@@ -266,7 +271,10 @@ def deleteIngredient(request, pk):
 # @allowed_users(allowed_roles=["admin"])
 def recipes(request):
     recipes = Recipe.objects.all()
+    # myFilter = RecipeFilter(request.GET, queryset=recipes)
+    # recipes = myFilter.qs
     return render(request, "diet/recipes.html", {'recipes': recipes})
+# ,{'myFilter': myFilter}
 
 @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])

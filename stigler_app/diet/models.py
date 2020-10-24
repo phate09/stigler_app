@@ -87,7 +87,12 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.name
-
+    def tag_list(self):
+        tags_msg = ""
+        for t in self.tags:
+            tags_msg += t.name + ", "
+        tags_msg = tags_msg[:-2]
+        return tags_msg
 
 class Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe, null=True, on_delete=models.CASCADE)
