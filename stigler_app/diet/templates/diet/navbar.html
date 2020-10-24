@@ -36,6 +36,12 @@
             </li>
         </ul>
     </div>
-    <span class="hello-msg">Hello, {{request.user}}</span>
-    <span><a class="hello-msg" href="{%url 'logout'%}">Logout</a> </span>
+    <span class="hello-msg">Hello,
+        <span style="color:lightblue;font-weight:bold">
+            {{request.user}}
+        </span>
+    </span>
+    <span>
+        <a class="hello-msg" href="{%url 'logout'%}">Logout
+        </a> </span>
 </nav>
