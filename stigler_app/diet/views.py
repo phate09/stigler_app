@@ -188,6 +188,18 @@ def addProduct(request):
     context = {'form': form}
     return render(request, 'diet/product_form.html', context)
 
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
+def updateProduct(request, pk):
+    order = Product.objects.get(id=pk)
+    form = ProductForm(instance=order)
+    if request.method == "POST":
+        form = ProductForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {'form': form}
+    return render(request, 'diet/product_form.html', context)
 
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["admin"])
@@ -212,6 +224,16 @@ def deleteType(request, pk):
         return redirect('/')
     context = {'item': order}
     return render(request, 'diet/delete_type.html', context)
+
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
+def deleteProduct(request, pk):
+    order = Product.objects.get(id=pk)
+    if request.method == "POST":
+        order.delete()
+        return redirect('/')
+    context = {'item': order}
+    return render(request, 'diet/delete_product.html', context)
 
 
 @login_required(login_url="login")
