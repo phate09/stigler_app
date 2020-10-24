@@ -87,7 +87,7 @@ class Recipe(models.Model):
         tags_msg = tags_msg[:-2]
         return tags_msg
 
-    def simpleMacros(self)->dict:
+    def simpleMacros(self, num_servings=1, rounding=2, rounding_price=2) -> dict:
         recipe_summary = {"calories": 0, "carbohydrates": 0, "protein": 0, "fat": 0, "price": 0}
         for ingredient in self.ingredient_set.all():
             first_product: Product = ingredient.type.product_set.all()[0]
@@ -102,18 +102,11 @@ class Recipe(models.Model):
             recipe_summary["protein"] += protein
             recipe_summary["fat"] += fat
             recipe_summary["price"] += price
-            # print(f"Name {ingredient.type.name} - {first_product.name}")
-            # print(f"Amount multiplier {amount_multiplier}")
-            # print(f"calories {calories}")
-            # print(f"carbohydrates {carbohydrates}")
-            # print(f"protein {protein}")
-            # print(f"fat {fat}")
-            # print(f"price {price}")
-        recipe_summary["calories"] /= self.servings
-        recipe_summary["carbohydrates"] /= self.servings
-        recipe_summary["protein"] /= self.servings
-        recipe_summary["fat"] /= self.servings
-        recipe_summary["price"] /= self.servings
+        recipe_summary["calories"] = round(recipe_summary["calories"] * num_servings / self.servings, rounding)
+        recipe_summary["carbohydrates"] = round(recipe_summary["carbohydrates"] * num_servings / self.servings, rounding)
+        recipe_summary["protein"] = round(recipe_summary["protein"] * num_servings / self.servings, rounding)
+        recipe_summary["fat"] = round(recipe_summary["fat"] * num_servings / self.servings, rounding)
+        recipe_summary["price"] = round(recipe_summary["price"] * num_servings / self.servings, rounding_price)
         return recipe_summary
 
 
