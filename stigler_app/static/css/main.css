@@ -2,7 +2,8 @@
 }
 
 body {
-    background-color: #ebeff5;
+    background-color: #ebeff5 !important;
+    margin-bottom: 60px;
 }
 
 
@@ -18,3 +19,39 @@ body {
 #orders-pending {
     background-color: #7CD1C0;
 }
+
+/* Footer */
+
+    html {
+     position: relative;
+     min-height: 100%;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        /* Set the fixed height of the footer here */
+        height: 60px;
+        line-height: 60px; /* Vertically center the text there */
+        background-color: #343a40;
+        color: #999c9f;
+        display: inline-block;
+    }
+
+    .container2 {
+        clear:right;
+        float: right;
+
+
+
+    }
+
+/* Buttons */
+
+/* Buttons */
+
+/* Buttons */
+
+/* Buttons */
+

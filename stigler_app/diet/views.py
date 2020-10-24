@@ -176,3 +176,6 @@ def deleteIngredient(request, pk):
 def recipes(request):
     recipes = Recipe.objects.all()
     return render(request, "diet/recipes.html", {'recipes': recipes})
+
+def landingPage(request):
+    return render(request, "diet/landingPage.html")
