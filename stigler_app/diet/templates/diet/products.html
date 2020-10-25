@@ -50,14 +50,14 @@
                                 {% for i in products%}
                                 <tr>
                                     <td>{{i.name}}</td>
-                                    <td>Price</td>
-                                    <td>Amount</td>
-                                    <td>Unit</td>
-                                    <td>Calories</td>
-                                    <td>Carbohydrates</td>
-                                    <td>Protein</td>
-                                    <td>Fat</td>
-                                    <td>Type</td>
+                                    <td>{{i.price}}</td>
+                                    <td>{{i.amount}}</td>
+                                    <td>{{i.unit}}</td>
+                                    <td>{{i.calories}}</td>
+                                    <td>{{i.carbohydrates}}</td>
+                                    <td>{{i.protein}}</td>
+                                    <td>{{i.fat}}</td>
+                                    <td>{{i.type}}</td>
                                     <td><a class="btn btn-sm btn-info" href="{% url 'update_product' i.id %}">Update</a></td>
                                     <td><a class="btn btn-sm btn-danger" href="{%url 'delete_product' i.id%}">Delete</a></td>
                                 </tr>
