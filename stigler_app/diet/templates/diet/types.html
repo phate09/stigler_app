@@ -29,8 +29,10 @@
                         {% for i in types%}
                         <tr>
                             <td>{{i.name}}</td>
+                            {%if request.user.is_staff%}
                             <td><a class="btn btn-sm btn-info" href="{% url 'update_type' i.id %}">Update</a></td>
                             <td><a class="btn btn-sm btn-danger" href="{%url 'delete_type' i.id%}">Delete</a></td>
+                            {%endif%}
                         </tr>
                         {%endfor%}
                     </table>
