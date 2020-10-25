@@ -43,7 +43,7 @@
         <table class="table table-borderless">
 
             <tr>
-                <th></th>
+                <th>Name</th>
                 <th>Servings</th>
                 <th>Ingredients</th>
                 <th>Calories</th>
@@ -56,7 +56,7 @@
             {% for recipe in recipes%}
             <tr>
                 <td>{{recipe.recipe.name}}</td>
-                <td>{{recipe.recipe.servings}}</td>
+                <td>{{recipe.servings}}</td>
                 <td>{{recipe.recipe.ingredient}}</td>
                 <td>{{recipe.macros.calories}}</td>
                 <td>{{recipe.macros.carbohydrates}}</td>
