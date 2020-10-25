@@ -160,7 +160,8 @@ def view_recipe(request, pk):
     ingredients_count = recipe.ingredient_set.all().count()
     myFilter = IngredientFilter(request.GET, queryset=ingredients)
     ingredients = myFilter.qs
-    context = {'recipe': recipe, 'ingredients': ingredients, 'ingredients_count': ingredients_count, 'myFilter': myFilter, "tags": tags_msg}
+    macros = recipe.simpleMacros()
+    context = {'recipe': recipe, 'ingredients': ingredients, 'ingredients_count': ingredients_count, 'myFilter': myFilter, "tags": tags_msg, "macros": macros}
     return render(request, "diet/recipe.html", context)
 
 

@@ -11,7 +11,8 @@
             <hr>
             <a class="btn btn-outline-info  btn-sm btn-block" href="">Update Recipe</a>
             <a class="btn btn-outline-danger  btn-sm btn-block" href="">Delete Recipe</a>
-            <a class="btn btn-outline-info  btn-sm btn-block" href="{%url 'add_ingredient' recipe.id%}">Add Ingredient</a>
+            <a class="btn btn-outline-info  btn-sm btn-block" href="{%url 'add_ingredient' recipe.id%}">Add
+                Ingredient</a>
         </div>
     </div>
 
@@ -20,15 +21,19 @@
             <h5>Information</h5>
             <hr>
             <p>Name: {{recipe.name}}</p>
+            <p>Servings: {{recipe.servings}}</p>
             <p>Tags: {{tags}}</p>
         </div>
     </div>
 
     <div class="col-md">
         <div class="card card-body">
-            <h5>Total Orders</h5>
+            <h5>Macros per serving</h5>
             <hr>
-            <h1 style="text-align: center;padding: 10px">{{ingredients_count}}</h1>
+            <h6>Calories: {{macros.calories}}</h6>
+            <h6>Carbohydrates: {{macros.carbohydrates}}</h6>
+            <h6>Protein: {{macros.protein}}</h6>
+            <h6>Fat: {{macros.fat}}</h6>
         </div>
     </div>
 </div>
@@ -65,7 +70,8 @@
                     <td>{{ingredient.amount}}</td>
                     <td>{{ingredient.unit}}</td>
                     <td><a class="btn btn-sm btn-info" href="{%url 'update_ingredient' ingredient.id%}">Update</a></td>
-                    <td><a class="btn btn-sm btn-danger" href="{%url 'delete_ingredient' ingredient.id%}">Delete</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="{%url 'delete_ingredient' ingredient.id%}">Delete</a>
+                    </td>
                 </tr>
                 {%endfor%}
             </table>
