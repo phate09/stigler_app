@@ -13,3 +13,4 @@ dependencies:
       - openpyxl
       - pandas
       - scipy
+      - xlrd
