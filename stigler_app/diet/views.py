@@ -346,5 +346,5 @@ def landingPage(request):
 
 def test(request):
     customer = Customer.objects.get(user=request.user)
-    optimise_diet(customer)
+    optimise_diet(customer,randomness=True)
     return redirect("/")
