@@ -3,7 +3,7 @@ import numpy as np
 from scipy import optimize
 
 
-def optimise_diet(customer: Customer):
+def optimise_diet(customer: Customer, randomness=False):
     results = {"ids": [], "servings": [], "daily_cost": 0, "annual cost": 0}
     bounds: Objectives = customer.objectives
     ub = [bounds.calories_max, bounds.carbohydrates_max, bounds.protein_max, bounds.fat_max]
@@ -30,7 +30,12 @@ def optimise_diet(customer: Customer):
     price_list = np.stack(price_list)
     ids_list = np.array(ids_list)
     # print(macros_list)
-    c = np.array(price_list)
+    if randomness:
+        random_array = np.random.random(price_list.shape)
+        print(f"random_array:{random_array}")
+        c = random_array * np.array(price_list)
+    else:
+        c = np.array(price_list)
     A = np.transpose(macros_list)
     A2 = np.transpose(macros_list)
     A3 = np.concatenate((A, -A2))  # the negative sign allows the use of a lower bound
