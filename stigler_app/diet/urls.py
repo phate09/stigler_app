@@ -34,6 +34,7 @@ urlpatterns = [path('', views.home, name="home"),
 
                path("update_type/<str:pk>/", views.updateType, name="update_type"),
                path("delete_type/<str:pk>/", views.deleteType, name="delete_type"),
+               path("your_diary/", views.yourDiary, name="your_diary"),
 
                path("update_customer/<str:pk>/", views.updateCustomer, name="update_customer"),
                path("update_objectives/<str:pk>/", views.updateObjectives, name="update_objectives"),
@@ -51,5 +52,6 @@ urlpatterns = [path('', views.home, name="home"),
                path("logout/",views.logoutUser,name="logout"),
                path("init/",views.init_data,name="init_db"),
                path("import_file/",views.upload_file,name = "import_file"),
-               path("import_local/",views.handle_uploaded_file,name = "import_local")
+               path("import_local/",views.handle_uploaded_file,name = "import_local"),
+               path("test/",views.test,name = "test")
                ]
