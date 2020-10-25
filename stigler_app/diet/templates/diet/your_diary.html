@@ -56,8 +56,8 @@
             {% for recipe in recipes%}
             <tr>
                 <td>{{recipe.recipe.name}}</td>
-                <td>{{recipe.servings}}</td>
-                <td>Ingredients</td>
+                <td>{{recipe.recipe.servings}}</td>
+                <td>{{recipe.recipe.ingredient}}</td>
                 <td>{{recipe.macros.calories}}</td>
                 <td>{{recipe.macros.carbohydrates}}</td>
                 <td>{{recipe.macros.protein}}</td>
