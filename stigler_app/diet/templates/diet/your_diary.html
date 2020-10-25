@@ -19,18 +19,14 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm">
-                        Total daily cost {{daily_cost}}
-                        <br>
-                        Total annual cost {{annual_cost}}
-                        <br>
-                        Total calories {{total_calories}}
+                        <h6>Total daily cost: {{daily_cost}}£</h6>
+                        <h6>Total annual cost: {{annual_cost}}£</h6>
+                        <h6>Total calories: {{total_calories}} kCal</h6>
                     </div>
                     <div class="col-sm">
-                        Total carbohydrates {{total_carbohydrates}}
-                        <br>
-                        Total proteins {{total_protein}}
-                        <br>
-                        Total fats {{total_fat}}
+                        <h6>Total carbohydrates: {{total_carbohydrates}}g</h6>
+                        <h6>Total proteins: {{total_protein}}g</h6>
+                        <h6>Total fats: {{total_fat}}g</h6>
                     </div>
                 </div>
             </div>
@@ -58,11 +54,11 @@
                 <td><a class="" href="{%url 'view_recipe' recipe.recipe.id%}">{{recipe.recipe.name}}</a></td>
                 <td>{{recipe.servings}}</td>
                 <td>Ingredients</td>
-                <td>{{recipe.macros.calories}}</td>
-                <td>{{recipe.macros.carbohydrates}}</td>
-                <td>{{recipe.macros.protein}}</td>
-                <td>{{recipe.macros.fat}}</td>
-                <td>{{recipe.macros.price}}</td>
+                <td>{{recipe.macros.calories}} kCal</td>
+                <td>{{recipe.macros.carbohydrates}}g</td>
+                <td>{{recipe.macros.protein}}g</td>
+                <td>{{recipe.macros.fat}}g</td>
+                <td>{{recipe.macros.price}}£</td>
             </tr>
             {%endfor%}
         </table>
