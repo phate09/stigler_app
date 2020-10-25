@@ -13,10 +13,10 @@
                         <a class="btn btn-lg btn-info" href="{% url 'generate_menu' %}">Calculate</a>
                     </div>
                     <div class="col-sm">
-                        <h6>Target calories: {{total_calories}} kCal</h6>
-                        <h6>Target carbohydrates: {{total_carbohydrates}}g</h6>
-                        <h6>Target proteins: {{total_protein}}g</h6>
-                        <h6>Target fats: {{total_fat}}g</h6>
+                        <h6>Target calories: {{objective.calories_min}} - {{objective.calories_max}} kCal</h6>
+                        <h6>Target carbohydrates: {{objective.carbohydrates_min}} - {{objective.carbohydrates_max}}g</h6>
+                        <h6>Target proteins: {{objective.protein_min}} - {{objective.protein_max}}g</h6>
+                        <h6>Target fats: {{objective.fat_min}} - {{objective.fat_max}}g</h6>
                     </div>
                 </div>
             </div>
