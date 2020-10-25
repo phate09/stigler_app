@@ -1,6 +1,6 @@
 # stigler_app
 
-<p>try at http://35.197.229.127:8000/dashboard/</p>
+<p>Try it <a href="http://35.197.229.127:8000">Here</a></p>
  
 sign up or use the already preconfigured username:edoardo password:stigler01
 
