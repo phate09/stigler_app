@@ -43,11 +43,11 @@
                             {% for i in recipes%}
                             <tr>
                                 <td><a class="" href="{%url 'view_recipe' i.id%}">{{i.name}}</a></td>
-                                <td>{{i.tags}}</td>
-                                <td>Macro 1</td>
-                                <td>Macro 2</td>
-                                <td>Macro 3</td>
-                                <td>Macro 4</td>
+                                <td>{{i.tag_list}}</td>
+                                <td>{{i.simpleMacros.calories}}</td>
+                                <td>{{i.simpleMacros.carbohydrates}}</td>
+                                <td>{{i.simpleMacros.protein}}</td>
+                                <td>{{i.simpleMacros.fat}}</td>
                                 <td><a class="btn btn-sm btn-info" href="{%url 'update_recipe' i.id%}">Update</a></td>
                                 <td><a class="btn btn-sm btn-danger" href="{%url 'delete_recipe' i.id%}">Delete</a></td>
                             </tr>

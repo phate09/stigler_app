@@ -1,2 +1,3 @@
 /stigler_app/db.sqlite3
 /stigler_app/import.xlsx
+/stigler_app/*.sqlite3

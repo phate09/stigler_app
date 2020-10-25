@@ -84,7 +84,7 @@ class Recipe(models.Model):
 
     def tag_list(self):
         tags_msg = ""
-        for t in self.tags:
+        for t in self.tags.all():
             tags_msg += t.name + ", "
         tags_msg = tags_msg[:-2]
         return tags_msg
