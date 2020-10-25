@@ -160,7 +160,8 @@ def view_recipe(request, pk):
     ingredients_count = recipe.ingredient_set.all().count()
     myFilter = IngredientFilter(request.GET, queryset=ingredients)
     ingredients = myFilter.qs
-    context = {'recipe': recipe, 'ingredients': ingredients, 'ingredients_count': ingredients_count, 'myFilter': myFilter, "tags": tags_msg}
+    macros = recipe.simpleMacros()
+    context = {'recipe': recipe, 'ingredients': ingredients, 'ingredients_count': ingredients_count, 'myFilter': myFilter, "tags": tags_msg, "macros": macros}
     return render(request, "diet/recipe.html", context)
 
 
@@ -303,8 +304,7 @@ def products(request):
 def yourDiary(request):
     customer = Customer.objects.get(user=request.user)
     objectives = customer.objectives
-    recipes = Recipe.objects.all()
-    context = {'objectives': objectives, 'customer': customer, 'recipes': recipes}
+    context = {"objective": objectives}
     return render(request, "diet/your_diary.html", context)
 
 
@@ -361,9 +361,10 @@ def landingPage(request):
     return render(request, "diet/landingPage.html")
 
 
-def test(request):
+def generate_recipe(request):
     customer = Customer.objects.get(user=request.user)
     values = optimise_diet(customer)
+    objectives = customer.objectives
     print(values)
     # recipe_list = []
     # servings_list = []
@@ -382,6 +383,7 @@ def test(request):
     daily_cost = round(values["daily_cost"], 2)
     annual_cost = round(values["annual_cost"], 2)
     context = {"recipes": recipe_result, "total_calories": total_calories, "total_carbohydrates": total_carbohydrates, "total_protein": total_protein, "total_fat": total_fat, "daily_cost": daily_cost,
-               "annual_cost": annual_cost, }
+               "annual_cost": annual_cost, "objective": objectives}
+    print(recipe_result[0]["ingredients"])
     # "ingredients": ingredients
     return render(request, "diet/your_diary.html", context)

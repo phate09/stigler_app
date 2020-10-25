@@ -53,9 +53,8 @@ def optimise_diet(customer: Customer, randomness=False):
         # results["servings"].append(solution.x[i])
         recipe = Recipe.objects.get(id=used_id)
         servings = round(solution.x[i], 2)
-        ingredients = recipe.ingredient_set.all()
         simple_macros = recipe.simpleMacros(servings)
-        results["recipes"].append({"recipe": recipe, "servings": servings, "ingredients": ingredients, "macros": simple_macros})
+        results["recipes"].append({"recipe": recipe, "servings": servings, "ingredients": recipe.simple_ingredients(servings), "macros": simple_macros})
         food_total_cost = round(solution.x[i] * price_list[i], 6)
         print(servings, "servings ", food_names[i], "= £", food_total_cost)
         daily_cost += food_total_cost

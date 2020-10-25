@@ -39,11 +39,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'your_diary' %}">Today's Menu</a>
             </li>
-            {%if request.user.is_staff%}
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="{% url 'test' %}">Dev test</a>-->
-<!--            </li>-->
-            {%endif%}
         </ul>
     </div>
     <span class="hello-msg">Hello,
