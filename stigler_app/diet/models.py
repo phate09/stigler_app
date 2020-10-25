@@ -73,7 +73,6 @@ class Product(models.Model):
     def price_density(self):
         return self.price / self.amount
 
-
 class Recipe(models.Model):
     name = models.CharField(max_length=200, null=True)
     servings = models.FloatField(default=1)

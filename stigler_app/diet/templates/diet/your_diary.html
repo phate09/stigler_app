@@ -1,0 +1,67 @@
+{%  extends 'diet/main.html' %}
+
+{% block content %}
+<br>
+<div class="row">
+    <div class="col-sm">
+        <div class="card">
+            <h4 class="card-header">Today's Menu
+            </h4>
+            <div class="card-body">
+                <a class="btn btn-lg btn-info" href="{% url 'test' %}">Calculate</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="card">
+            <h5 class="card-header">Your total
+            </h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm">
+                        Total daily cost {{daily_cost}}
+                        <br>
+                        Total annual cost {{annual_cost}}
+                        <br>
+                        Total calories {{total_calories}}
+                    </div>
+                    <div class="col-sm">
+                        Total carbohydrates {{total_carbohydrates}}
+                        <br>
+                        Total proteins {{total_protein}}
+                        <br>
+                        Total fats {{total_fat}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="card">
+    <div class="card-body">
+        <table class="table table-borderless">
+
+            <tr>
+                <th></th>
+                <th>Servings</th>
+                <th>Ingredients</th>
+                <th>Calories</th>
+                <th>Carbohydrates</th>
+                <th>Proteins</th>
+                <th>Fats</th>
+            </tr>
+
+            {% for i in recipe_list%}
+            <tr>
+                <td>{{i.name}}</td>
+                <td>{{i.servings}}</td>
+                <td>{{i.servings}}</td>
+            </tr>
+            {%endfor%}
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}
