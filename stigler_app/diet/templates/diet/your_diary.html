@@ -8,8 +8,19 @@
             <h4 class="card-header">Today's Menu
             </h4>
             <div class="card-body">
-                <a class="btn btn-lg btn-info" href="{% url 'generate_menu' %}">Calculate</a>
+                <div class="row">
+                    <div class="col-sm">
+                        <a class="btn btn-lg btn-info" href="{% url 'generate_menu' %}">Calculate</a>
+                    </div>
+                    <div class="col-sm">
+                        <h6>Target calories: {{total_calories}} kCal</h6>
+                        <h6>Target carbohydrates: {{total_carbohydrates}}g</h6>
+                        <h6>Target proteins: {{total_protein}}g</h6>
+                        <h6>Target fats: {{total_fat}}g</h6>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
     <div class="col-sm">
@@ -19,15 +30,17 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm">
-                        <h6>Total daily cost: {{daily_cost}}£</h6>
-                        <h6>Total annual cost: {{annual_cost}}£</h6>
                         <h6>Total calories: {{total_calories}} kCal</h6>
-                    </div>
-                    <div class="col-sm">
                         <h6>Total carbohydrates: {{total_carbohydrates}}g</h6>
                         <h6>Total proteins: {{total_protein}}g</h6>
                         <h6>Total fats: {{total_fat}}g</h6>
                     </div>
+                    <div class="col-sm">
+                        <h6>Total daily cost: {{daily_cost}}£</h6>
+                        <h6>Total annual cost: {{annual_cost}}£</h6>
+
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -54,7 +67,7 @@
                 <td><a class="" href="{%url 'view_recipe' recipe.recipe.id%}">{{recipe.recipe.name}}</a></td>
                 <td>{{recipe.servings}}</td>
                 <td>{%for ingredient in recipe.ingredients%}
-                    <p>{{ingredient.ingredient.type.name}} x{{ingredient.amount}}</p>
+                    <p>{{ingredient.ingredient.type.name}} x{{ingredient.amount}} {{ingredient.ingredient.unit}}</p>
                     {%endfor%}
 
                 </td>
