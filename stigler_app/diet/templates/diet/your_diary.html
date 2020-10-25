@@ -8,7 +8,7 @@
             <h4 class="card-header">Today's Menu
             </h4>
             <div class="card-body">
-                <a class="btn btn-lg btn-info" href="{% url 'test' %}">Calculate</a>
+                <a class="btn btn-lg btn-info" href="{% url 'generate_menu' %}">Calculate</a>
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@
 
             {% for recipe in recipes%}
             <tr>
-                <td>{{recipe.recipe.name}}</td>
+                <td><a class="" href="{%url 'view_recipe' recipe.recipe.id%}">{{recipe.recipe.name}}</a></td>
                 <td>{{recipe.servings}}</td>
                 <td>Ingredients</td>
                 <td>{{recipe.macros.calories}}</td>

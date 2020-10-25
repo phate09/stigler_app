@@ -301,13 +301,7 @@ def products(request):
 @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])
 def yourDiary(request):
-    customer = Customer.objects.get(user=request.user)
-    objectives = customer.objectives
-    recipes = Recipe.objects.all()
-    # ricette = {}
-    # ricette[0]["macro"]
-    context = {'objectives': objectives, 'customer': customer, 'recipes': recipes}
-    return render(request, "diet/your_diary.html", context)
+    return render(request, "diet/your_diary.html")
 
 
 @login_required(login_url="login")
@@ -363,7 +357,7 @@ def landingPage(request):
     return render(request, "diet/landingPage.html")
 
 
-def test(request):
+def generate_recipe(request):
     customer = Customer.objects.get(user=request.user)
     values = optimise_diet(customer)
     print(values)
