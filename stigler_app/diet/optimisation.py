@@ -4,7 +4,7 @@ from scipy import optimize
 
 
 def optimise_diet(customer: Customer):
-    results = {"ids": [], "servings": [], "daily_cost": 0, "annual_cost": 0}
+    results = {"ids": [], "servings": [], "daily_cost": 0, "annual cost": 0}
     bounds: Objectives = customer.objectives
     ub = [bounds.calories_max, bounds.carbohydrates_max, bounds.protein_max, bounds.fat_max]
     lb = [bounds.calories_min, bounds.carbohydrates_min, bounds.protein_min, bounds.fat_min]

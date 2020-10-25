@@ -1,36 +1,37 @@
-#!/usr/bin/env python
-
 import pandas as pd
 import os
 import sys
 
+from .db_methods import *
+from .models import *
 
 
-def handle_df(df):
+def handle_df_macros(df):
     print(df)
-    del df["Recipe link"]
-    column_names = df.columns.values.tolist()
-    last_recipe = None
-    for row in df.rows:
-        tag = row["Tag"]
-        name = row["Recipe Name"]
-        servings = row["Servings"]
-        ingredient = row["Ingredients"]
-        amount = row["Amount"]
-        unit = row["Unit"]
-        if pd.notnull(name):
-            last_recipe = Recipe()
-            last_recipe.name = name
-            last_recipe.servings = servings  # if pd.notnull(ingredient):
+    for item in df["name"]:
+        create_type_if_not_exists(item)
+    for index, row in df.iterrows():
+        name_ = row["name"]
+        price_ = row["price"]
+        amount_ = row["amount"]
+        calories = row["kcal"]
+        carbs = row["carb"]
+        prot = row["prot"]
+        fat = row["fat"]
+        create_product_if_not_exists("Aldi " + name_, price_, amount_, calories, carbs, prot, fat, name_)
 
 
-if __name__ == '__main__':
-    pd.options.display.max_columns = 10
-    sys.path.insert(0,"/home/edoardo/Development/stigler_app")
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'stigler_app.settings'
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stigler_app.settings')
-    import django
-    django.setup()
-    from stigler_app.diet.models import Recipe
-    df = pd.read_excel("/home/edoardo/Development/stigler_app/stigler_app/import.xlsx")
-    handle_df(df)
+def handle_df_recipes(df):
+    print(df)
+    for index, row in df.iterrows():
+        name_ = row["name"]
+        servings = row["servings"]
+        create_recipe_if_not_exists(name_, servings)
+
+def handle_df_ingredients(df):
+    print(df)
+    for index, row in df.iterrows():
+        recipe_name = row["recipe name"]
+        amount = row["amount"]
+        type_name = row["type"]
+        create_ingredient_if_not_exist(recipe_name,type_name,amount)

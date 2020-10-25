@@ -67,6 +67,8 @@ class Product(models.Model):
     fat = models.FloatField()
     type = models.ForeignKey(Type, null=True, blank=True, on_delete=models.SET_NULL)
 
+    def __str__(self):
+        return self.name
     @property
     def price_density(self):
         return self.price / self.amount
@@ -81,7 +83,7 @@ class Recipe(models.Model):
 
     def tag_list(self):
         tags_msg = ""
-        for t in self.tags:
+        for t in self.tags.all():
             tags_msg += t.name + ", "
         tags_msg = tags_msg[:-2]
         return tags_msg
@@ -111,7 +113,7 @@ class Recipe(models.Model):
 
 class Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe, null=True, on_delete=models.CASCADE)
-    type = models.ForeignKey(Type, null=True, blank=True, on_delete=models.SET_NULL)
+    type = models.ForeignKey(Type, null=True, blank=True, on_delete=models.CASCADE)
     amount = models.FloatField()
     unit = models.CharField(max_length=200, null=True, choices=UNIT)
 
