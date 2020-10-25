@@ -1,4 +1,5 @@
 # stigler_app
+![image](home.PNG)
 
 <p>Try it <a href="http://35.197.229.127:8000">Here</a></p>
  
