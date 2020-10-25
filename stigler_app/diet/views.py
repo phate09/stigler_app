@@ -14,6 +14,7 @@ from .filters import IngredientFilter
 # from .filters import RecipeFilter
 from django.contrib.auth.decorators import login_required
 import pandas as pd
+from .optimisation import *
 
 # Create your views here.
 @unauthenticated_user
@@ -54,11 +55,11 @@ def logoutUser(request):
     return redirect("login")
 
 
-@login_required(login_url="login")
+# @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])
 def home(request):
     context = {}
-    return render(request, "diet/dashboard.html", context)
+    return render(request, "diet/landingPage.html", context)
 
 
 @login_required(login_url="login")
@@ -72,7 +73,7 @@ def userSettings(request):
 
 
 @login_required(login_url="login")
-@allowed_users(allowed_roles=["admin"])
+# @allowed_users(allowed_roles=["admin"])
 def createRecipe(request):
     form = CreateRecipeForm()
     if request.method == "POST":
@@ -156,7 +157,7 @@ def view_recipe(request, pk):
 
 
 @login_required(login_url="login")
-@allowed_users(allowed_roles=["admin"])
+# @allowed_users(allowed_roles=["admin"])
 def addIngredient(request, pk):
     recipe = Recipe.objects.get(id=pk)
     form = IngredientForm(initial={'recipe': recipe})
@@ -171,7 +172,7 @@ def addIngredient(request, pk):
 
 
 @login_required(login_url="login")
-@allowed_users(allowed_roles=["admin"])
+# @allowed_users(allowed_roles=["admin"])
 def addType(request):
     form = TypeForm()
     if request.method == "POST":
@@ -183,7 +184,7 @@ def addType(request):
     return render(request, 'diet/type_form.html', context)
 
 @login_required(login_url="login")
-@allowed_users(allowed_roles=["admin"])
+# @allowed_users(allowed_roles=["admin"])
 def addProduct(request):
     form = ProductForm()
     if request.method == "POST":
@@ -282,6 +283,18 @@ def products(request):
     products = Product.objects.all()
     return render(request, "diet/products.html", {'products': products})
 
+
+@login_required(login_url="login")
+# @allowed_users(allowed_roles=["admin"])
+def yourDiary(request):
+    customer = Customer.objects.get(user=request.user)
+    objectives = customer.objectives
+    recipes = Recipe.objects.all()
+    # ricette = {}
+    # ricette[0]["macro"]
+    context = {'objectives': objectives, 'customer': customer, 'recipes': recipes}
+    return render(request, "diet/your_diary.html", context)
+
 @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])
 def types(request):
@@ -330,5 +343,32 @@ def handle_uploaded_file(request):
     #     print()
     return redirect('/')
 
+@unauthenticated_user
 def landingPage(request):
     return render(request, "diet/landingPage.html")
+
+def test(request):
+    customer = Customer.objects.get(user=request.user)
+    values = optimise_diet(customer)
+    recipe_list =[]
+    servings_list=[]
+    for i in range(len(values["ids"])):
+        id = values["ids"][i]
+        recipe = Recipe.objects.get(id=id)
+        # ingredients = recipe.ingredient_set.all()
+        servings = values["servings"][i]
+        servings_list.append(servings)
+        recipe_list.append(recipe)
+
+
+    total_calories = values["total_macros"]["calories"]
+    total_carbohydrates = values["total_macros"]["carbohydrates"]
+    total_protein = values["total_macros"]["protein"]
+    total_fat = values["total_macros"]["fat"]
+    daily_cost = values["daily_cost"]
+    annual_cost = values["annual_cost"]
+    context={"servings_list":servings_list,"recipe_list":recipe_list, "total_calories":total_calories,
+             "total_carbohydrates": total_carbohydrates, "total_protein": total_protein, "total_fat":total_fat,
+             "daily_cost":daily_cost, "annual_cost":annual_cost, }
+    # "ingredients": ingredients
+    return render(request, "diet/your_diary.html",context)
