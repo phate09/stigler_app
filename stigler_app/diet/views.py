@@ -62,6 +62,7 @@ def home(request):
     context = {}
     return render(request, "diet/landingPage.html", context)
 
+
 # @login_required(login_url="login")
 # @allowed_users(allowed_roles=["admin"])
 def dashBoard(request):
@@ -361,28 +362,28 @@ def handle_uploaded_file(request):
 def landingPage(request):
     return render(request, "diet/landingPage.html")
 
+
 def test(request):
     customer = Customer.objects.get(user=request.user)
     values = optimise_diet(customer)
-    recipe_list =[]
-    servings_list=[]
-    for i in range(len(values["ids"])):
-        id = values["ids"][i]
-        recipe = Recipe.objects.get(id=id)
-        # ingredients = recipe.ingredient_set.all()
-        servings = values["servings"][i]
-        servings_list.append(servings)
-        recipe_list.append(recipe)
-
-
-    total_calories = values["total_macros"]["calories"]
-    total_carbohydrates = values["total_macros"]["carbohydrates"]
-    total_protein = values["total_macros"]["protein"]
-    total_fat = values["total_macros"]["fat"]
-    daily_cost = values["daily_cost"]
-    annual_cost = values["annual_cost"]
-    context={"servings_list":servings_list,"recipe_list":recipe_list, "total_calories":total_calories,
-             "total_carbohydrates": total_carbohydrates, "total_protein": total_protein, "total_fat":total_fat,
-             "daily_cost":daily_cost, "annual_cost":annual_cost, }
+    print(values)
+    # recipe_list = []
+    # servings_list = []
+    # for i in range(len(values["ids"])):
+    #     id = values["ids"][i]
+    #     recipe = Recipe.objects.get(id=id)
+    #     ingredients = recipe.ingredient_set.all()
+    # servings = values["servings"][i]
+    # servings_list.append(servings)
+    # recipe_list.append(recipe)
+    recipe_result = values["recipes"]
+    total_calories = round(values["total_macros"]["calories"], 1)
+    total_carbohydrates = round(values["total_macros"]["carbohydrates"], 1)
+    total_protein = round(values["total_macros"]["protein"], 1)
+    total_fat = round(values["total_macros"]["fat"], 1)
+    daily_cost = round(values["daily_cost"], 2)
+    annual_cost = round(values["annual_cost"], 2)
+    context = {"recipes": recipe_result, "total_calories": total_calories, "total_carbohydrates": total_carbohydrates, "total_protein": total_protein, "total_fat": total_fat, "daily_cost": daily_cost,
+               "annual_cost": annual_cost, }
     # "ingredients": ingredients
-    return render(request, "diet/your_diary.html",context)
+    return render(request, "diet/your_diary.html", context)

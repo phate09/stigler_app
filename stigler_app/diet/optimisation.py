@@ -4,7 +4,7 @@ from scipy import optimize
 
 
 def optimise_diet(customer: Customer, randomness=False):
-    results = {"ids": [], "servings": [], "daily_cost": 0, "annual cost": 0}
+    results = {"recipes": [], "daily_cost": 0, "annual cost": 0}
     bounds: Objectives = customer.objectives
     ub = [bounds.calories_max, bounds.carbohydrates_max, bounds.protein_max, bounds.fat_max]
     lb = [bounds.calories_min, bounds.carbohydrates_min, bounds.protein_min, bounds.fat_min]
@@ -49,14 +49,17 @@ def optimise_diet(customer: Customer, randomness=False):
     total_macros = {"calories": 0, "carbohydrates": 0, "protein": 0, "fat": 0, "price": 0}
     for i in np.transpose(np.argwhere(solution.x > 1e-3))[0]:  # don't show negligible foods
         used_id = ids_list[i]
-        results["ids"].append(used_id)
-        results["servings"].append(solution.x[i])
+        # results["ids"].append(used_id)
+        # results["servings"].append(solution.x[i])
+        recipe = Recipe.objects.get(id=used_id)
+        servings = round(solution.x[i], 2)
+        ingredients = recipe.ingredient_set.all()
+        simple_macros = recipe.simpleMacros(servings)
+        results["recipes"].append({"recipe": recipe, "servings": servings, "ingredients": ingredients, "macros": simple_macros})
         food_total_cost = round(solution.x[i] * price_list[i], 6)
-        print(round(solution.x[i], 2), "servings ", food_names[i], "= £", food_total_cost)
+        print(servings, "servings ", food_names[i], "= £", food_total_cost)
         daily_cost += food_total_cost
-        simple_macros = Recipe.objects.get(id=used_id).simpleMacros(solution.x[i])
         total_macros = sum_macros(total_macros, simple_macros)
-        print(f"Macros: {simple_macros}")
     results["daily_cost"] = round(daily_cost, 2)
     results["annual_cost"] = round(daily_cost * 365.25, 2)
     results["total_macros"] = total_macros
@@ -69,7 +72,6 @@ def optimise_diet(customer: Customer, randomness=False):
         nut = macros_list[:, j]
         xs = round(np.matmul(nut, solution.x), 1)
         print(nutrients_names[j], xs, "g" if j != 0 else "")
-    print(results)
     return results
 
 
