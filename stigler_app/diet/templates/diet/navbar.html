@@ -21,7 +21,7 @@
             </li>
             {%if request.user.is_staff%}
             <li class="nav-item active">
-                <a class="nav-link" href="{% url 'home' %}">Dashboard</a>
+                <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
             </li>
             {%endif%}
             <li class="nav-item">
@@ -40,9 +40,9 @@
                 <a class="nav-link" href="{% url 'your_diary' %}">Today's Menu</a>
             </li>
             {%if request.user.is_staff%}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'test' %}">Dev test</a>
-            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="{% url 'test' %}">Dev test</a>-->
+<!--            </li>-->
             {%endif%}
         </ul>
     </div>
