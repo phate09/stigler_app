@@ -304,8 +304,6 @@ def yourDiary(request):
     customer = Customer.objects.get(user=request.user)
     objectives = customer.objectives
     recipes = Recipe.objects.all()
-    # ricette = {}
-    # ricette[0]["macro"]
     context = {'objectives': objectives, 'customer': customer, 'recipes': recipes}
     return render(request, "diet/your_diary.html", context)
 

@@ -37,8 +37,11 @@
                                 <th>Protein</th>
                                 <th>Carbohydrates</th>
                                 <th>Fat</th>
+                                {%if request.user.is_staff%}
                                 <th>Update</th>
                                 <th>Delete</th>
+                                {%endif%}
+
                             </tr>
                             {% for i in recipes%}
                             <tr>
@@ -48,8 +51,10 @@
                                 <td>{{i.simpleMacros.carbohydrates}}</td>
                                 <td>{{i.simpleMacros.protein}}</td>
                                 <td>{{i.simpleMacros.fat}}</td>
+                                {%if request.user.is_staff%}
                                 <td><a class="btn btn-sm btn-info" href="{%url 'update_recipe' i.id%}">Update</a></td>
                                 <td><a class="btn btn-sm btn-danger" href="{%url 'delete_recipe' i.id%}">Delete</a></td>
+                                {%endif%}
                             </tr>
                             {%endfor%}
                         </table>
