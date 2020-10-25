@@ -380,5 +380,6 @@ def generate_recipe(request):
     annual_cost = round(values["annual_cost"], 2)
     context = {"recipes": recipe_result, "total_calories": total_calories, "total_carbohydrates": total_carbohydrates, "total_protein": total_protein, "total_fat": total_fat, "daily_cost": daily_cost,
                "annual_cost": annual_cost, }
+    print(recipe_result[0]["ingredients"])
     # "ingredients": ingredients
     return render(request, "diet/your_diary.html", context)

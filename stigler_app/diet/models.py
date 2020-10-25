@@ -69,9 +69,11 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
     @property
     def price_density(self):
         return self.price / self.amount
+
 
 class Recipe(models.Model):
     name = models.CharField(max_length=200, null=True)
@@ -87,6 +89,17 @@ class Recipe(models.Model):
             tags_msg += t.name + ", "
         tags_msg = tags_msg[:-2]
         return tags_msg
+
+    def ingredients_list(self):
+        return self.ingredient_set.all()
+
+    def simple_ingredients(self, num_servings=1, rounding=2):
+        ingredients = self.ingredient_set.all()
+        result = []
+        for ingredient in ingredients:
+            amount_multiplier = ingredient.amount / self.servings
+            result.append({"ingredient": ingredient, "amount": round(num_servings * amount_multiplier, rounding)})
+        return result
 
     def simpleMacros(self, num_servings=1, rounding=2, rounding_price=2) -> dict:
         recipe_summary = {"calories": 0, "carbohydrates": 0, "protein": 0, "fat": 0, "price": 0}
