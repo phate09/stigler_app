@@ -34,8 +34,8 @@
                                 <th>Name</th>
                                 <th>Tags</th>
                                 <th>Calories</th>
-                                <th>Protein</th>
                                 <th>Carbohydrates</th>
+                                <th>Protein</th>
                                 <th>Fat</th>
                                 <th>Update</th>
                                 <th>Delete</th>
@@ -44,10 +44,10 @@
                             <tr>
                                 <td><a class="" href="{%url 'view_recipe' i.id%}">{{i.name}}</a></td>
                                 <td>{{i.tag_list}}</td>
-                                <td>{{i.simpleMacros.calories}}</td>
-                                <td>{{i.simpleMacros.carbohydrates}}</td>
-                                <td>{{i.simpleMacros.protein}}</td>
-                                <td>{{i.simpleMacros.fat}}</td>
+                                <td>{{i.simpleMacros.calories}} kCal</td>
+                                <td>{{i.simpleMacros.carbohydrates}}g</td>
+                                <td>{{i.simpleMacros.protein}}g</td>
+                                <td>{{i.simpleMacros.fat}}g</td>
                                 <td><a class="btn btn-sm btn-info" href="{%url 'update_recipe' i.id%}">Update</a></td>
                                 <td><a class="btn btn-sm btn-danger" href="{%url 'delete_recipe' i.id%}">Delete</a></td>
                             </tr>

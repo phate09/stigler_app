@@ -2,14 +2,14 @@
 {%load static%}
 
 {% block header%}
-    <link rel="stylesheet" type="text/css" href="{% static '/css/products.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static '/css/products.css'%}">
 {% endblock %}
 
 {% block content %}
 <div class="header">
-   <div class="products">
-      <h1>Products</h1>
-   </div>
+    <div class="products">
+        <h1>Products</h1>
+    </div>
 </div>
 
 <div class="row">
@@ -32,37 +32,33 @@
             <div class="card-body">
                 <div id="table-wrapper">
                     <div id="table-scroll">
-                        <table  class = "table table-borderless">
+                        <table class="table table-borderless">
                             <tr>
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Amount</th>
-                                <th>Unit</th>
                                 <th>Calories</th>
                                 <th>Carbohydrates</th>
                                 <th>Protein</th>
                                 <th>Fat</th>
                                 <th>Type</th>
-                                {%if request.user.is_staff%}
                                 <th>Update</th>
                                 <th>Delete</th>
-                                {%endif%}
                             </tr>
-                             {% for i in products%}
+                            {% for i in products%}
                             <tr>
                                 <td>{{i.name}}</td>
                                 <td>{{i.price}}</td>
-                                <td>{{i.amount}}</td>
-                                <td>{{i.unit}}</td>
-                                <td>{{i.calories}}</td>
-                                <td>{{i.carbohydrates}}</td>
-                                <td>{{i.protein}}</td>
-                                <td>{{i.fat}}</td>
+                                <td>{{i.amount}} {{i.unit}}</td>
+                                <td>{{i.calories}} kCal</td>
+                                <td>{{i.carbohydrates}}g</td>
+                                <td>{{i.protein}}g</td>
+                                <td>{{i.fat}}g</td>
                                 <td>{{i.type}}</td>
-                                {%if request.user.is_staff%}
-                                <td><a class="btn btn-sm btn-info" href="{% url 'update_product' i.id %}">Update</a></td>
-                                <td><a class="btn btn-sm btn-danger" href="{%url 'delete_product' i.id%}">Delete</a></td>
-                                {%endif%}
+                                <td><a class="btn btn-sm btn-info" href="{% url 'update_product' i.id %}">Update</a>
+                                </td>
+                                <td><a class="btn btn-sm btn-danger" href="{%url 'delete_product' i.id%}">Delete</a>
+                                </td>
                             </tr>
                             {%endfor%}
                         </table>

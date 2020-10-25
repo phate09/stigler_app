@@ -2,14 +2,14 @@
 {%load static%}
 
 {% block header%}
-    <link rel="stylesheet" type="text/css" href="{% static '/css/types.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static '/css/types.css'%}">
 {% endblock %}
 
 {% block content %}
 <div class="header">
-   <div class="types">
-      <h1>Types</h1>
-   </div>
+    <div class="types">
+        <h1>Types</h1>
+    </div>
 </div>
 
 <div class="row">
@@ -32,7 +32,7 @@
             <div class="card-body">
                 <div id="table-wrapper">
                     <div id="table-scroll">
-                        <table  class = "table table-borderless">
+                        <table class="table table-borderless">
                             <tr>
                                 <th>Name</th>
                                 <th>Update</th>
@@ -41,19 +41,17 @@
                             {% for i in types%}
                             <tr>
                                 <td>{{i.name}}</td>
-                                {%if request.user.is_staff%}
                                 <td><a class="btn btn-sm btn-info" href="{% url 'update_type' i.id %}">Update</a></td>
                                 <td><a class="btn btn-sm btn-danger" href="{%url 'delete_type' i.id%}">Delete</a></td>
-                                {%endif%}
                             </tr>
                             {%endfor%}
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 
-</div>
 
-
-{% endblock content %}
+    {% endblock content %}
