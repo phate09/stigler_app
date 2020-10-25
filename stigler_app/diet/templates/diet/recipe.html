@@ -5,6 +5,8 @@
 <br>
 
 <div class="row">
+    {%if request.user.is_staff%}
+
     <div class="col-md">
         <div class="card card-body">
             <h5>Recipe:</h5>
@@ -15,6 +17,7 @@
                 Ingredient</a>
         </div>
     </div>
+    {%endif%}
 
     <div class="col-md">
         <div class="card card-body">
@@ -61,17 +64,25 @@
                     <th>Ingredient</th>
                     <th>Amount</th>
                     <th>Unit</th>
+                    {%if request.user.is_staff%}
+
                     <th>Update</th>
                     <th>Remove</th>
+                    {%endif%}
+
                 </tr>
                 {%for ingredient in ingredients%}
                 <tr>
                     <td>{{ingredient.type.name}}</td>
                     <td>{{ingredient.amount}}</td>
                     <td>{{ingredient.unit}}</td>
+                    {%if request.user.is_staff%}
+
                     <td><a class="btn btn-sm btn-info" href="{%url 'update_ingredient' ingredient.id%}">Update</a></td>
                     <td><a class="btn btn-sm btn-danger" href="{%url 'delete_ingredient' ingredient.id%}">Delete</a>
                     </td>
+                    {%endif%}
+
                 </tr>
                 {%endfor%}
             </table>
