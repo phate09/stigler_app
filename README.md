@@ -1,5 +1,9 @@
 # stigler_app
 
+<p>try at http://35.197.229.127:8000/dashboard/</p>
+ 
+sign up or use the already preconfigured username:edoardo password:stigler01
+
 <p>[setup on local machine]</p>
 
 - git clone
